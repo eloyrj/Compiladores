@@ -16,7 +16,7 @@ public class LaBusquedaDelTesoroParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, NEWLINE=5, INT=6, Objeto=7;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, NEWLINE=6, INT=7, Objeto=8;
 	public static final int
 		RULE_prog = 0, RULE_expr = 1, RULE_coordenada = 2;
 	private static String[] makeRuleNames() {
@@ -28,13 +28,14 @@ public class LaBusquedaDelTesoroParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "' te da '", "' puntos'", "' esta enterrado en '", "','"
+			null, "' te da '", "' puntos'", "' esta enterrado en '", "'El jugador tiene '", 
+			"','"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, "NEWLINE", "INT", "Objeto"
+			null, null, null, null, null, null, "NEWLINE", "INT", "Objeto"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -115,7 +116,7 @@ public class LaBusquedaDelTesoroParser extends Parser {
 			setState(11);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==Objeto) {
+			while (_la==T__3 || _la==Objeto) {
 				{
 				{
 				setState(6);
@@ -157,7 +158,7 @@ public class LaBusquedaDelTesoroParser extends Parser {
 		ExprContext _localctx = new ExprContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_expr);
 		try {
-			setState(22);
+			setState(25);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
@@ -191,7 +192,22 @@ public class LaBusquedaDelTesoroParser extends Parser {
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
+				{
 				setState(21);
+				match(T__3);
+				}
+				setState(22);
+				match(INT);
+				{
+				setState(23);
+				match(T__1);
+				}
+				}
+				break;
+			case 4:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(24);
 				match(Objeto);
 				}
 				break;
@@ -225,11 +241,11 @@ public class LaBusquedaDelTesoroParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(24);
+			setState(27);
 			match(INT);
-			setState(25);
-			match(T__3);
-			setState(26);
+			setState(28);
+			match(T__4);
+			setState(29);
 			match(INT);
 			}
 		}
@@ -245,15 +261,16 @@ public class LaBusquedaDelTesoroParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\t\37\4\2\t\2\4\3"+
-		"\t\3\4\4\t\4\3\2\3\2\3\2\7\2\f\n\2\f\2\16\2\17\13\2\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\5\3\31\n\3\3\4\3\4\3\4\3\4\3\4\2\2\5\2\4\6\2\2\2\36\2\r"+
-		"\3\2\2\2\4\30\3\2\2\2\6\32\3\2\2\2\b\t\5\4\3\2\t\n\7\7\2\2\n\f\3\2\2\2"+
-		"\13\b\3\2\2\2\f\17\3\2\2\2\r\13\3\2\2\2\r\16\3\2\2\2\16\3\3\2\2\2\17\r"+
-		"\3\2\2\2\20\21\7\t\2\2\21\22\7\3\2\2\22\23\7\b\2\2\23\31\7\4\2\2\24\25"+
-		"\7\t\2\2\25\26\7\5\2\2\26\31\5\6\4\2\27\31\7\t\2\2\30\20\3\2\2\2\30\24"+
-		"\3\2\2\2\30\27\3\2\2\2\31\5\3\2\2\2\32\33\7\b\2\2\33\34\7\6\2\2\34\35"+
-		"\7\b\2\2\35\7\3\2\2\2\4\r\30";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\n\"\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\3\2\3\2\3\2\7\2\f\n\2\f\2\16\2\17\13\2\3\3\3\3\3\3\3\3\3\3"+
+		"\3\3\3\3\3\3\3\3\3\3\3\3\5\3\34\n\3\3\4\3\4\3\4\3\4\3\4\2\2\5\2\4\6\2"+
+		"\2\2\"\2\r\3\2\2\2\4\33\3\2\2\2\6\35\3\2\2\2\b\t\5\4\3\2\t\n\7\b\2\2\n"+
+		"\f\3\2\2\2\13\b\3\2\2\2\f\17\3\2\2\2\r\13\3\2\2\2\r\16\3\2\2\2\16\3\3"+
+		"\2\2\2\17\r\3\2\2\2\20\21\7\n\2\2\21\22\7\3\2\2\22\23\7\t\2\2\23\34\7"+
+		"\4\2\2\24\25\7\n\2\2\25\26\7\5\2\2\26\34\5\6\4\2\27\30\7\6\2\2\30\31\7"+
+		"\t\2\2\31\34\7\4\2\2\32\34\7\n\2\2\33\20\3\2\2\2\33\24\3\2\2\2\33\27\3"+
+		"\2\2\2\33\32\3\2\2\2\34\5\3\2\2\2\35\36\7\t\2\2\36\37\7\7\2\2\37 \7\t"+
+		"\2\2 \7\3\2\2\2\4\r\33";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
