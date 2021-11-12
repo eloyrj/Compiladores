@@ -8,4 +8,4 @@ expr:
 NEWLINE: [\r\n]+;
 INT: [0-9]+;
 coordenada: INT','INT;
-Objeto: '"'[a-z|A-Z|' ']+'"';
+Objeto: '"'[a-zA-Z' ']+'"';
