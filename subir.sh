@@ -1,6 +1,6 @@
 #!/bin/bash
 RUTA=$PWD
-T=  $(basename `pwd`)
+T= $(dirname $0)
 export RUTA
 export T
 cd
