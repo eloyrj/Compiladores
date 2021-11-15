@@ -1,6 +1,6 @@
 #!/bin/bash
 RUTA=$PWD
-T= $pwd|rev|awk -F \/ '{print $1}'|rev
+T=  $(basename `pwd`)
 export RUTA
 export T
 cd
