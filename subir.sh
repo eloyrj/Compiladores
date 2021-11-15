@@ -1,6 +1,6 @@
 #!/bin/bash
 RUTA=$PWD
-T="Compiladores"
+T=  basename 'pwd'
 export RUTA
 export T
 cd
