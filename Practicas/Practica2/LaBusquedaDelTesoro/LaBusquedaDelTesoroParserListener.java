@@ -56,4 +56,34 @@ public interface LaBusquedaDelTesoroParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExpr(LaBusquedaDelTesoroParser.ExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LaBusquedaDelTesoroParser#expr2}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpr2(LaBusquedaDelTesoroParser.Expr2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link LaBusquedaDelTesoroParser#expr2}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpr2(LaBusquedaDelTesoroParser.Expr2Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link LaBusquedaDelTesoroParser#expr3}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpr3(LaBusquedaDelTesoroParser.Expr3Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link LaBusquedaDelTesoroParser#expr3}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpr3(LaBusquedaDelTesoroParser.Expr3Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link LaBusquedaDelTesoroParser#expr4}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpr4(LaBusquedaDelTesoroParser.Expr4Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link LaBusquedaDelTesoroParser#expr4}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpr4(LaBusquedaDelTesoroParser.Expr4Context ctx);
 }

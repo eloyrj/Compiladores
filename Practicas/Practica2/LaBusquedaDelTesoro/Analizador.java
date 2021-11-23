@@ -1,9 +1,9 @@
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Scanner;
 
-import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
-
+import org.antlr.v4.runtime.*;
 
 public class Analizador {
 
@@ -23,8 +23,29 @@ public class Analizador {
 
         LaBusquedaDelTesoroParser parser = new LaBusquedaDelTesoroParser(tokens);
 
+
         ParseTree tree = parser.fichero();
 
-        System.out.println(tree.toStringTree(parser));
+        Scanner sc = new Scanner(System.in);
+        while(true){
+            System.out.println("1- imprimir el arbol ");
+            System.out.println("2- jugar al juego ");
+            System.out.println("0- salir ");
+            System.out.println("Introduce un numero: ");
+            String in = sc.nextLine();
+            if (in.equals("1")){
+                System.out.println(tree.toStringTree(parser));
+            }
+            else if(in.equals("2")){
+                ParseTreeWalker walker = new ParseTreeWalker();
+                AnalizadorListener escuchador = new AnalizadorListener();
+                walker.walk(escuchador,tree);
+            }else if(in.equals("3")){
+                break;
+            }
+        }
+
+        
+        
     }
 }

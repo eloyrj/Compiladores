@@ -21,10 +21,11 @@ public class LaBusquedaDelTesoroParser extends Parser {
 		TEXTOCOMENTARIOML=13, FINAL_COMENTARIO_UL=14, TEXTOCOMENTARIOUL=15;
 	public static final int
 		RULE_fichero = 0, RULE_comentario = 1, RULE_textos = 2, RULE_prog = 3, 
-		RULE_expr = 4;
+		RULE_expr = 4, RULE_expr2 = 5, RULE_expr3 = 6, RULE_expr4 = 7;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"fichero", "comentario", "textos", "prog", "expr"
+			"fichero", "comentario", "textos", "prog", "expr", "expr2", "expr3", 
+			"expr4"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -132,31 +133,31 @@ public class LaBusquedaDelTesoroParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(15);
+			setState(21);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << COMENTARIOABRIR) | (1L << COMENTARIOLIEA) | (1L << INTRO) | (1L << Objeto) | (1L << TIENE))) != 0)) {
 				{
-				setState(13);
+				setState(19);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case Objeto:
 				case TIENE:
 					{
-					setState(10);
+					setState(16);
 					prog();
 					}
 					break;
 				case COMENTARIOABRIR:
 				case COMENTARIOLIEA:
 					{
-					setState(11);
+					setState(17);
 					comentario();
 					}
 					break;
 				case INTRO:
 					{
-					setState(12);
+					setState(18);
 					match(INTRO);
 					}
 					break;
@@ -164,7 +165,7 @@ public class LaBusquedaDelTesoroParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(17);
+				setState(23);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -215,32 +216,32 @@ public class LaBusquedaDelTesoroParser extends Parser {
 		enterRule(_localctx, 2, RULE_comentario);
 		int _la;
 		try {
-			setState(35);
+			setState(41);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case COMENTARIOABRIR:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(18);
+				setState(24);
 				match(COMENTARIOABRIR);
-				setState(23);
+				setState(29);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INTRO) | (1L << TEXTOCOMENTARIOML) | (1L << TEXTOCOMENTARIOUL))) != 0)) {
 					{
-					setState(21);
+					setState(27);
 					_errHandler.sync(this);
 					switch (_input.LA(1)) {
 					case TEXTOCOMENTARIOML:
 					case TEXTOCOMENTARIOUL:
 						{
-						setState(19);
+						setState(25);
 						textos();
 						}
 						break;
 					case INTRO:
 						{
-						setState(20);
+						setState(26);
 						match(INTRO);
 						}
 						break;
@@ -248,34 +249,34 @@ public class LaBusquedaDelTesoroParser extends Parser {
 						throw new NoViableAltException(this);
 					}
 					}
-					setState(25);
+					setState(31);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(26);
+				setState(32);
 				match(COMENTARIOCERRAR);
 				}
 				break;
 			case COMENTARIOLIEA:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(27);
+				setState(33);
 				match(COMENTARIOLIEA);
-				setState(31);
+				setState(37);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==TEXTOCOMENTARIOML || _la==TEXTOCOMENTARIOUL) {
 					{
 					{
-					setState(28);
+					setState(34);
 					textos();
 					}
 					}
-					setState(33);
+					setState(39);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(34);
+				setState(40);
 				match(FINAL_COMENTARIO_UL);
 				}
 				break;
@@ -322,13 +323,13 @@ public class LaBusquedaDelTesoroParser extends Parser {
 		enterRule(_localctx, 4, RULE_textos);
 		try {
 			int _alt;
-			setState(47);
+			setState(53);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case TEXTOCOMENTARIOML:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(38); 
+				setState(44); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -336,7 +337,7 @@ public class LaBusquedaDelTesoroParser extends Parser {
 					case 1:
 						{
 						{
-						setState(37);
+						setState(43);
 						match(TEXTOCOMENTARIOML);
 						}
 						}
@@ -344,7 +345,7 @@ public class LaBusquedaDelTesoroParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(40); 
+					setState(46); 
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
@@ -353,7 +354,7 @@ public class LaBusquedaDelTesoroParser extends Parser {
 			case TEXTOCOMENTARIOUL:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(43); 
+				setState(49); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -361,7 +362,7 @@ public class LaBusquedaDelTesoroParser extends Parser {
 					case 1:
 						{
 						{
-						setState(42);
+						setState(48);
 						match(TEXTOCOMENTARIOUL);
 						}
 						}
@@ -369,7 +370,7 @@ public class LaBusquedaDelTesoroParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(45); 
+					setState(51); 
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
@@ -394,6 +395,15 @@ public class LaBusquedaDelTesoroParser extends Parser {
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
+		public Expr2Context expr2() {
+			return getRuleContext(Expr2Context.class,0);
+		}
+		public Expr3Context expr3() {
+			return getRuleContext(Expr3Context.class,0);
+		}
+		public Expr4Context expr4() {
+			return getRuleContext(Expr4Context.class,0);
+		}
 		public TerminalNode INTRO() { return getToken(LaBusquedaDelTesoroParser.INTRO, 0); }
 		public ProgContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -415,11 +425,35 @@ public class LaBusquedaDelTesoroParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			{
-			setState(49);
-			expr();
-			setState(50);
-			match(INTRO);
+			setState(61);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
+			case 1:
+				{
+				setState(55);
+				expr();
+				}
+				break;
+			case 2:
+				{
+				setState(56);
+				expr2();
+				}
+				break;
+			case 3:
+				{
+				setState(57);
+				expr3();
+				}
+				break;
+			case 4:
+				{
+				setState(58);
+				expr4();
+				setState(59);
+				match(INTRO);
+				}
+				break;
 			}
 			}
 		}
@@ -439,9 +473,6 @@ public class LaBusquedaDelTesoroParser extends Parser {
 		public TerminalNode TEDA() { return getToken(LaBusquedaDelTesoroParser.TEDA, 0); }
 		public TerminalNode INT() { return getToken(LaBusquedaDelTesoroParser.INT, 0); }
 		public TerminalNode PUNTOS() { return getToken(LaBusquedaDelTesoroParser.PUNTOS, 0); }
-		public TerminalNode ENTERRADO() { return getToken(LaBusquedaDelTesoroParser.ENTERRADO, 0); }
-		public TerminalNode COODENADA() { return getToken(LaBusquedaDelTesoroParser.COODENADA, 0); }
-		public TerminalNode TIENE() { return getToken(LaBusquedaDelTesoroParser.TIENE, 0); }
 		public ExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -460,51 +491,139 @@ public class LaBusquedaDelTesoroParser extends Parser {
 		ExprContext _localctx = new ExprContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_expr);
 		try {
+			enterOuterAlt(_localctx, 1);
+			{
 			setState(63);
-			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(52);
-				match(Objeto);
-				setState(53);
-				match(TEDA);
-				setState(54);
-				match(INT);
-				setState(55);
-				match(PUNTOS);
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(56);
-				match(Objeto);
-				setState(57);
-				match(ENTERRADO);
-				setState(58);
-				match(COODENADA);
-				}
-				break;
-			case 3:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(59);
-				match(TIENE);
-				setState(60);
-				match(INT);
-				setState(61);
-				match(PUNTOS);
-				}
-				break;
-			case 4:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(62);
-				match(Objeto);
-				}
-				break;
+			match(Objeto);
+			setState(64);
+			match(TEDA);
+			setState(65);
+			match(INT);
+			setState(66);
+			match(PUNTOS);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Expr2Context extends ParserRuleContext {
+		public TerminalNode Objeto() { return getToken(LaBusquedaDelTesoroParser.Objeto, 0); }
+		public TerminalNode ENTERRADO() { return getToken(LaBusquedaDelTesoroParser.ENTERRADO, 0); }
+		public TerminalNode COODENADA() { return getToken(LaBusquedaDelTesoroParser.COODENADA, 0); }
+		public Expr2Context(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expr2; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LaBusquedaDelTesoroParserListener ) ((LaBusquedaDelTesoroParserListener)listener).enterExpr2(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LaBusquedaDelTesoroParserListener ) ((LaBusquedaDelTesoroParserListener)listener).exitExpr2(this);
+		}
+	}
+
+	public final Expr2Context expr2() throws RecognitionException {
+		Expr2Context _localctx = new Expr2Context(_ctx, getState());
+		enterRule(_localctx, 10, RULE_expr2);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(68);
+			match(Objeto);
+			setState(69);
+			match(ENTERRADO);
+			setState(70);
+			match(COODENADA);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Expr3Context extends ParserRuleContext {
+		public TerminalNode TIENE() { return getToken(LaBusquedaDelTesoroParser.TIENE, 0); }
+		public TerminalNode INT() { return getToken(LaBusquedaDelTesoroParser.INT, 0); }
+		public TerminalNode PUNTOS() { return getToken(LaBusquedaDelTesoroParser.PUNTOS, 0); }
+		public Expr3Context(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expr3; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LaBusquedaDelTesoroParserListener ) ((LaBusquedaDelTesoroParserListener)listener).enterExpr3(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LaBusquedaDelTesoroParserListener ) ((LaBusquedaDelTesoroParserListener)listener).exitExpr3(this);
+		}
+	}
+
+	public final Expr3Context expr3() throws RecognitionException {
+		Expr3Context _localctx = new Expr3Context(_ctx, getState());
+		enterRule(_localctx, 12, RULE_expr3);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(72);
+			match(TIENE);
+			setState(73);
+			match(INT);
+			setState(74);
+			match(PUNTOS);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Expr4Context extends ParserRuleContext {
+		public TerminalNode Objeto() { return getToken(LaBusquedaDelTesoroParser.Objeto, 0); }
+		public Expr4Context(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expr4; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LaBusquedaDelTesoroParserListener ) ((LaBusquedaDelTesoroParserListener)listener).enterExpr4(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LaBusquedaDelTesoroParserListener ) ((LaBusquedaDelTesoroParserListener)listener).exitExpr4(this);
+		}
+	}
+
+	public final Expr4Context expr4() throws RecognitionException {
+		Expr4Context _localctx = new Expr4Context(_ctx, getState());
+		enterRule(_localctx, 14, RULE_expr4);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(76);
+			match(Objeto);
 			}
 		}
 		catch (RecognitionException re) {
@@ -519,25 +638,27 @@ public class LaBusquedaDelTesoroParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\21D\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\3\2\3\2\7\2\20\n\2\f\2\16\2\23\13\2\3\3"+
-		"\3\3\3\3\7\3\30\n\3\f\3\16\3\33\13\3\3\3\3\3\3\3\7\3 \n\3\f\3\16\3#\13"+
-		"\3\3\3\5\3&\n\3\3\4\6\4)\n\4\r\4\16\4*\3\4\6\4.\n\4\r\4\16\4/\5\4\62\n"+
-		"\4\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6B\n\6\3"+
-		"\6\2\2\7\2\4\6\b\n\2\2\2K\2\21\3\2\2\2\4%\3\2\2\2\6\61\3\2\2\2\b\63\3"+
-		"\2\2\2\nA\3\2\2\2\f\20\5\b\5\2\r\20\5\4\3\2\16\20\7\6\2\2\17\f\3\2\2\2"+
-		"\17\r\3\2\2\2\17\16\3\2\2\2\20\23\3\2\2\2\21\17\3\2\2\2\21\22\3\2\2\2"+
-		"\22\3\3\2\2\2\23\21\3\2\2\2\24\31\7\3\2\2\25\30\5\6\4\2\26\30\7\6\2\2"+
-		"\27\25\3\2\2\2\27\26\3\2\2\2\30\33\3\2\2\2\31\27\3\2\2\2\31\32\3\2\2\2"+
-		"\32\34\3\2\2\2\33\31\3\2\2\2\34&\7\16\2\2\35!\7\4\2\2\36 \5\6\4\2\37\36"+
-		"\3\2\2\2 #\3\2\2\2!\37\3\2\2\2!\"\3\2\2\2\"$\3\2\2\2#!\3\2\2\2$&\7\20"+
-		"\2\2%\24\3\2\2\2%\35\3\2\2\2&\5\3\2\2\2\')\7\17\2\2(\'\3\2\2\2)*\3\2\2"+
-		"\2*(\3\2\2\2*+\3\2\2\2+\62\3\2\2\2,.\7\21\2\2-,\3\2\2\2./\3\2\2\2/-\3"+
-		"\2\2\2/\60\3\2\2\2\60\62\3\2\2\2\61(\3\2\2\2\61-\3\2\2\2\62\7\3\2\2\2"+
-		"\63\64\5\n\6\2\64\65\7\6\2\2\65\t\3\2\2\2\66\67\7\t\2\2\678\7\n\2\289"+
-		"\7\7\2\29B\7\13\2\2:;\7\t\2\2;<\7\r\2\2<B\7\b\2\2=>\7\f\2\2>?\7\7\2\2"+
-		"?B\7\13\2\2@B\7\t\2\2A\66\3\2\2\2A:\3\2\2\2A=\3\2\2\2A@\3\2\2\2B\13\3"+
-		"\2\2\2\f\17\21\27\31!%*/\61A";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\21Q\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\3\2\7\2\26"+
+		"\n\2\f\2\16\2\31\13\2\3\3\3\3\3\3\7\3\36\n\3\f\3\16\3!\13\3\3\3\3\3\3"+
+		"\3\7\3&\n\3\f\3\16\3)\13\3\3\3\5\3,\n\3\3\4\6\4/\n\4\r\4\16\4\60\3\4\6"+
+		"\4\64\n\4\r\4\16\4\65\5\48\n\4\3\5\3\5\3\5\3\5\3\5\3\5\5\5@\n\5\3\6\3"+
+		"\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\t\3\t\3\t\2\2\n\2\4\6"+
+		"\b\n\f\16\20\2\2\2U\2\27\3\2\2\2\4+\3\2\2\2\6\67\3\2\2\2\b?\3\2\2\2\n"+
+		"A\3\2\2\2\fF\3\2\2\2\16J\3\2\2\2\20N\3\2\2\2\22\26\5\b\5\2\23\26\5\4\3"+
+		"\2\24\26\7\6\2\2\25\22\3\2\2\2\25\23\3\2\2\2\25\24\3\2\2\2\26\31\3\2\2"+
+		"\2\27\25\3\2\2\2\27\30\3\2\2\2\30\3\3\2\2\2\31\27\3\2\2\2\32\37\7\3\2"+
+		"\2\33\36\5\6\4\2\34\36\7\6\2\2\35\33\3\2\2\2\35\34\3\2\2\2\36!\3\2\2\2"+
+		"\37\35\3\2\2\2\37 \3\2\2\2 \"\3\2\2\2!\37\3\2\2\2\",\7\16\2\2#\'\7\4\2"+
+		"\2$&\5\6\4\2%$\3\2\2\2&)\3\2\2\2\'%\3\2\2\2\'(\3\2\2\2(*\3\2\2\2)\'\3"+
+		"\2\2\2*,\7\20\2\2+\32\3\2\2\2+#\3\2\2\2,\5\3\2\2\2-/\7\17\2\2.-\3\2\2"+
+		"\2/\60\3\2\2\2\60.\3\2\2\2\60\61\3\2\2\2\618\3\2\2\2\62\64\7\21\2\2\63"+
+		"\62\3\2\2\2\64\65\3\2\2\2\65\63\3\2\2\2\65\66\3\2\2\2\668\3\2\2\2\67."+
+		"\3\2\2\2\67\63\3\2\2\28\7\3\2\2\29@\5\n\6\2:@\5\f\7\2;@\5\16\b\2<=\5\20"+
+		"\t\2=>\7\6\2\2>@\3\2\2\2?9\3\2\2\2?:\3\2\2\2?;\3\2\2\2?<\3\2\2\2@\t\3"+
+		"\2\2\2AB\7\t\2\2BC\7\n\2\2CD\7\7\2\2DE\7\13\2\2E\13\3\2\2\2FG\7\t\2\2"+
+		"GH\7\r\2\2HI\7\b\2\2I\r\3\2\2\2JK\7\f\2\2KL\7\7\2\2LM\7\13\2\2M\17\3\2"+
+		"\2\2NO\7\t\2\2O\21\3\2\2\2\f\25\27\35\37\'+\60\65\67?";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

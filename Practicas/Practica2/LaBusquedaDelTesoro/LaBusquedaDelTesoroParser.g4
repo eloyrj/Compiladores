@@ -13,9 +13,12 @@ comentario: COMENTARIOABRIR (textos|INTRO)* COMENTARIOCERRAR
 textos: TEXTOCOMENTARIOML+|TEXTOCOMENTARIOUL+;
 
 
-prog: (expr INTRO);
+prog: (expr|expr2|expr3|expr4 INTRO);
 expr:
-	Objeto TEDA INT PUNTOS
-	|Objeto ENTERRADO COODENADA
-	|TIENE INT PUNTOS
-	|Objeto;
+	Objeto TEDA INT PUNTOS;
+expr2:
+	Objeto ENTERRADO COODENADA;
+expr3:
+	TIENE INT PUNTOS;
+expr4:
+	Objeto;

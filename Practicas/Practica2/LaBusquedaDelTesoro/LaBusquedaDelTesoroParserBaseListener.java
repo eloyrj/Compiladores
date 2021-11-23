@@ -70,6 +70,42 @@ public class LaBusquedaDelTesoroParserBaseListener implements LaBusquedaDelTesor
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExpr(LaBusquedaDelTesoroParser.ExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpr2(LaBusquedaDelTesoroParser.Expr2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpr2(LaBusquedaDelTesoroParser.Expr2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpr3(LaBusquedaDelTesoroParser.Expr3Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpr3(LaBusquedaDelTesoroParser.Expr3Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpr4(LaBusquedaDelTesoroParser.Expr4Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpr4(LaBusquedaDelTesoroParser.Expr4Context ctx) { }
 
 	/**
 	 * {@inheritDoc}
