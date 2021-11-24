@@ -42,7 +42,7 @@ public class ControlJuego {
 
                 t.eliminarDeTablero(x, y);
             }else{
-                System.out.println("No has encontrado nada en la casilla "+x+","+y);
+                System.out.println("No has encontrado nada en la casilla "+(x+1)+","+(y+1));
             }
             System.out.println("Puntos: "+ p.getPuntos());
 

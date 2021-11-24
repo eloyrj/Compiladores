@@ -5,6 +5,7 @@ import java.util.Scanner;
 import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.*;
 
+
 public class Analizador {
 
 
@@ -40,7 +41,7 @@ public class Analizador {
                 ParseTreeWalker walker = new ParseTreeWalker();
                 AnalizadorListener escuchador = new AnalizadorListener();
                 walker.walk(escuchador,tree);
-            }else if(in.equals("3")){
+            }else if(in.equals("0")){
                 break;
             }
         }

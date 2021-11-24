@@ -1,5 +1,3 @@
-import java.util.ResourceBundle.Control;
-
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -31,6 +29,11 @@ public class AnalizadorListener extends LaBusquedaDelTesoroParserBaseListener{
     public void enterExpr4(LaBusquedaDelTesoroParser.Expr4Context ctx) {
         c.getT().setNombre(ctx.Objeto().getText());
         System.out.println(c.getT().getNombre());
+    }
+    @Override
+    public void enterExpr3(LaBusquedaDelTesoroParser.Expr3Context ctx) {
+        c.getP().setPuntos(Integer.parseInt(ctx.INT().getText()));
+        System.out.println("El jugador comenzará con "+ctx.INT().getText()+" puntos");
     }
 
     @Override
