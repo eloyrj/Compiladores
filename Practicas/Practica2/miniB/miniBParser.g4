@@ -13,13 +13,13 @@ comentario: COMENTARIOABRIR (textos|INTRO)* COMENTARIOCERRAR
 textos: TEXTOCOMENTARIOML+|TEXTOCOMENTARIOUL+;
 
 
-prog: (repeat|let|print|buclefor|condicionalif|input|buclewhile|errorsintactico|errortipo|funciones|rem INTRO);
+prog: (let|repeat|buclefor|condicionalif|print|input|buclewhile|errorsintactico|errortipo|funciones|rem INTRO);
 
 instruccion: print|let;
 
 print: PRINT E (CONTADOR|operacion|STRINGCOM);
 
-let: LET E STRING|CONTADOR E IGUAL E (STRINGCOM|INT|funciones|operacion);
+let: LET E STRING E IGUAL E (STRINGCOM|INT|funciones|operacion);
 
 buclefor: FOR E CONTADOR E IGUAL E INT E TO E INT INTROTAB ((condicionalif|instruccion ) INTROTAB)+ NEXT;
 
@@ -30,7 +30,7 @@ input: INPUT E STRINGCOM E STRING;
 
 repeat: REPEAT INTROTAB instruccion+ E UNTIL E let;
 
-buclewhile: WHILE E (STRING|INT) E (MAYORQUE|MENORQUE|IGUAL) E (STRING|INT) INTROTAB ((instruccion|let) INTROTAB)+ END;
+buclewhile: WHILE E (STRING|INT|CONTADOR) E (MAYORQUE|MENORQUE|IGUAL) E (STRING|INT) INTROTAB ((instruccion|let) INTROTAB)+ END;
 
 operacion: INT  (MAS|MENOS|POR|ENTRE|MOD)  INT;
 
