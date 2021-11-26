@@ -11,7 +11,7 @@ public class AnalizadorListener extends LaBusquedaDelTesoroParserBaseListener{
     public void enterExpr(LaBusquedaDelTesoroParser.ExprContext ctx) {
         int n = Integer.parseInt( ctx.INT().getText());
         c.getP().addPuntuaje(ctx.Objeto().getText(), n);
-        System.out.println(ctx.Objeto().getText()+" , "+ n);
+        System.out.println(ctx.Objeto().getText()+" te dará "+ n+" puntos");
     }
 
     @Override
@@ -21,14 +21,15 @@ public class AnalizadorListener extends LaBusquedaDelTesoroParserBaseListener{
         int y =Integer.parseInt(parts[1]);
         String obj = ctx.Objeto().getText();
         c.getT().introducirEnTablero(x-1, y-1, obj);
+        System.out.println("Se ha añadido "+obj+" en las cordenadas "+x + " , " + y);
         c.getT().imprimirTablero();
-        System.out.println(x + " , " + y);
+        
     }
 
     @Override
     public void enterExpr4(LaBusquedaDelTesoroParser.Expr4Context ctx) {
         c.getT().setNombre(ctx.Objeto().getText());
-        System.out.println(c.getT().getNombre());
+        System.out.println("Vas a jugar en el tablero "+c.getT().getNombre());
     }
     @Override
     public void enterExpr3(LaBusquedaDelTesoroParser.Expr3Context ctx) {
