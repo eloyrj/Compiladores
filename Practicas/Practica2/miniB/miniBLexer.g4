@@ -7,7 +7,7 @@ COMENTARIOLIEA: '//' -> pushMode(COMENTARIO_LINEA_MODE);
 
 
 //Operadores necesarios
-CONTADOR: 'i';
+E: ' ';
 
 IGUAL: '=';
 MAYORQUE: '>';
@@ -16,49 +16,49 @@ MAS: '+';
 MENOS: '-';
 POR: '*';
 ENTRE: '/';
-MOD: 'MOD';
+MOD: 'MOD'|'mod';
 
-END: 'END';
-NEXT: 'NEXT';
+END: 'END'|'end';
+NEXT: 'NEXT'|'next';
 PARENTESISA: '(';
 PARENTESISC: ')';
 COMILLAS: '"';
 
 //Print
-PRINT:'PRINT';
+PRINT:'PRINT'|'print';
 
 //Let
-LET: 'LET';
+LET: 'LET'|'let';
 NOTNUMBER: 'NOT A NUMBER';
 
 //Bucle for
-FOR: 'FOR';
-TO: 'TO';
+FOR: 'FOR'|'for';
+TO: 'TO'|'to';
 
 //Condicional if
 
-CONTINUE: 'CONTINUE';
-EXIT: 'EXIT';
-ELSE: 'ELSE';
-IF: 'IF';
-THEN: 'THEN';
+CONTINUE: 'CONTINUE'|'continue';
+EXIT: 'EXIT'|'exit';
+ELSE: 'ELSE'|'else';
+IF: 'IF'|'if';
+THEN: 'THEN'|'then';
 
 //input
-INPUT: 'INPUT';
+INPUT: 'INPUT'|'input';
 
 //Repeat
-REPEAT: 'REPEAT';
-UNTIL: 'UNTIL';
+REPEAT: 'REPEAT'|'repeat';
+UNTIL: 'UNTIL'|'until';
 
 
 //While
-WHILE: 'WHILE';
+WHILE: 'WHILE'|'while';
 
 //GDC euclid
 REM: 'REM';
-E: ' ';
+
 STRING:[a-zA-Z]+;
-STRINGCOM: '"'[a-zA-Z' ':¡!]+'"';
+STRINGCOM: '"'[a-zA-Z' ':¡!=]+'"';
 
 TAB: E+;
 INTROTAB: INTRO TAB*;

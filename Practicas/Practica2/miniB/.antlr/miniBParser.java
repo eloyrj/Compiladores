@@ -1,4 +1,4 @@
-// Generated from miniBParser.g4 by ANTLR 4.9.2
+// Generated from /home/corte/Documentos/Repositorios/Compiladores/Practicas/Practica2/miniB/miniBParser.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class miniBParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.9.2", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.8", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -129,14 +129,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_fichero; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterFichero(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitFichero(this);
-		}
 	}
 
 	public final FicheroContext fichero() throws RecognitionException {
@@ -221,14 +213,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_comentario; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterComentario(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitComentario(this);
-		}
 	}
 
 	public final ComentarioContext comentario() throws RecognitionException {
@@ -328,14 +312,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_textos; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterTextos(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitTextos(this);
-		}
 	}
 
 	public final TextosContext textos() throws RecognitionException {
@@ -452,14 +428,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_prog; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterProg(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitProg(this);
-		}
 	}
 
 	public final ProgContext prog() throws RecognitionException {
@@ -571,14 +539,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_instruccion; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterInstruccion(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitInstruccion(this);
-		}
 	}
 
 	public final InstruccionContext instruccion() throws RecognitionException {
@@ -639,14 +599,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_print; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterPrint(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitPrint(this);
-		}
 	}
 
 	public final PrintContext print() throws RecognitionException {
@@ -720,14 +672,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_let; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterLet(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitLet(this);
-		}
 	}
 
 	public final LetContext let() throws RecognitionException {
@@ -811,14 +755,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_asignacion; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterAsignacion(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitAsignacion(this);
-		}
 	}
 
 	public final AsignacionContext asignacion() throws RecognitionException {
@@ -926,14 +862,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_buclefor; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterBuclefor(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitBuclefor(this);
-		}
 	}
 
 	public final BucleforContext buclefor() throws RecognitionException {
@@ -1061,14 +989,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_condicionalif; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterCondicionalif(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitCondicionalif(this);
-		}
 	}
 
 	public final CondicionalifContext condicionalif() throws RecognitionException {
@@ -1243,14 +1163,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_input; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterInput(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitInput(this);
-		}
 	}
 
 	public final InputContext input() throws RecognitionException {
@@ -1300,14 +1212,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_repeat; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterRepeat(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitRepeat(this);
-		}
 	}
 
 	public final RepeatContext repeat() throws RecognitionException {
@@ -1394,14 +1298,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_buclewhile; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterBuclewhile(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitBuclewhile(this);
-		}
 	}
 
 	public final BuclewhileContext buclewhile() throws RecognitionException {
@@ -1522,14 +1418,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_operacion; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterOperacion(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitOperacion(this);
-		}
 	}
 
 	public final OperacionContext operacion() throws RecognitionException {
@@ -1622,14 +1510,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_errorsintactico; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterErrorsintactico(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitErrorsintactico(this);
-		}
 	}
 
 	public final ErrorsintacticoContext errorsintactico() throws RecognitionException {
@@ -1683,14 +1563,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_errortipo; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterErrortipo(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitErrortipo(this);
-		}
 	}
 
 	public final ErrortipoContext errortipo() throws RecognitionException {
@@ -1793,14 +1665,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_funciones; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterFunciones(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitFunciones(this);
-		}
 	}
 
 	public final FuncionesContext funciones() throws RecognitionException {
@@ -1907,14 +1771,6 @@ public class miniBParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_rem; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).enterRem(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof miniBParserListener ) ((miniBParserListener)listener).exitRem(this);
-		}
 	}
 
 	public final RemContext rem() throws RecognitionException {

@@ -77,6 +77,16 @@ public interface miniBParserListener extends ParseTreeListener {
 	 */
 	void exitLet(miniBParser.LetContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link miniBParser#asignacion}.
+	 * @param ctx the parse tree
+	 */
+	void enterAsignacion(miniBParser.AsignacionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link miniBParser#asignacion}.
+	 * @param ctx the parse tree
+	 */
+	void exitAsignacion(miniBParser.AsignacionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link miniBParser#buclefor}.
 	 * @param ctx the parse tree
 	 */
