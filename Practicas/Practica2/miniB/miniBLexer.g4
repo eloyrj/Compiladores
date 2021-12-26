@@ -7,7 +7,7 @@ COMENTARIOLIEA: '//' -> pushMode(COMENTARIO_LINEA_MODE);
 
 
 //Operadores necesarios
-E: ' ';
+E : (' ' | '\t') { skip(); };
 
 IGUAL: '=';
 MAYORQUE: '>';
