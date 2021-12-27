@@ -4,16 +4,17 @@ import java.util.Scanner;
 
 import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.*;
-
-
 public class Analizador {
 
     public static void main(String[] args) throws Exception {
         String inputFile=null;
         if (args.length >0) inputFile= args[0];
 
+        System.out.println(inputFile);
+
         InputStream is = System.in;
         if (inputFile!= null ) is = new FileInputStream(inputFile);
+
 
         ANTLRInputStream input = new ANTLRInputStream(is);
 

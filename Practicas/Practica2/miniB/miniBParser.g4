@@ -17,34 +17,34 @@ prog: (let|repeat|buclefor|condicionalif|print|input|buclewhile|errorsintactico|
 
 instruccion: print|let|asignacion;
 
-print: PRINT E (funciones|STRING|operacion|STRINGCOM);
+print: PRINT (funciones|STRING|operacion|STRINGCOM);
 
-let: LET E STRING E IGUAL E (STRINGCOM|INT|funciones|operacion);
+let: LET STRING IGUAL (STRINGCOM|INT|funciones|operacion);
 
-asignacion: STRING E IGUAL E (funciones|operacion|(STRING E MOD E STRING)|STRING|INT);
+asignacion: STRING IGUAL (funciones|operacion|(STRING MOD STRING)|STRING|INT);
 
-buclefor: FOR E STRING E IGUAL E INT E TO E INT INTROTAB ((condicionalif|instruccion ) INTROTAB)+ NEXT; 
+buclefor: FOR STRING IGUAL INT TO INT INTROTAB ((condicionalif|instruccion ) INTROTAB)+ NEXT; 
 
-condicionalif: IF E (((STRING|INT) E (MAYORQUE|MENORQUE|IGUAL) E (STRING|INT))|STRING|INT) E THEN INTROTAB
+condicionalif: IF (((STRING|INT) (MAYORQUE|MENORQUE|IGUAL) (STRING|INT))|STRING|INT) THEN INTROTAB
         ((CONTINUE|EXIT|instruccion) INTROTAB)+ (ELSE INTROTAB(instruccion INTROTAB)+)* END;
 
-input: INPUT E STRINGCOM E STRING;
+input: INPUT STRINGCOM STRING;
 
-repeat: REPEAT INTROTAB (instruccion INTROTAB)+ UNTIL E instruccion;
+repeat: REPEAT INTROTAB (instruccion INTROTAB)+ UNTIL instruccion;
 
-buclewhile: WHILE E (STRING|INT|STRING) E (MAYORQUE|MENORQUE|IGUAL) E (STRING|INT) INTROTAB ((instruccion|let) INTROTAB)+ END;
+buclewhile: WHILE (STRING|INT|STRING) (MAYORQUE|MENORQUE|IGUAL) (STRING|INT) INTROTAB ((instruccion|let) INTROTAB)+ END;
 
-operacion: (INT|STRING|STRINGCOM)  E* (MAS|MENOS|POR|ENTRE|MOD) E* (INT|STRING|STRINGCOM);
+operacion: (INT|STRING|STRINGCOM) (MAS|MENOS|POR|ENTRE|MOD) (INT|STRING|STRINGCOM);
 
 //Error sintactico
-errorsintactico: LET E IGUAL E INT;
+errorsintactico: LET IGUAL  INT;
 
 //Error tipo
-errortipo: (LET E STRING E IGUAL E COMILLAS INT COMILLAS)|(PRINT E STRING E (MENOS|MAS|ENTRE|POR) E INT);
+errortipo: (LET STRING IGUAL COMILLAS INT COMILLAS)|(PRINT STRING (MENOS|MAS|ENTRE|POR) INT);
 
 //Funciones
 funciones: (STRING PARENTESISA COMILLAS INT+ COMILLAS PARENTESISC)
         |(STRING PARENTESISA (STRINGCOM|STRING) PARENTESISC)
         |(STRING PARENTESISA funciones PARENTESISC);
 
-rem: REM E (STRING E*)+;
+rem: REM (STRING )+;

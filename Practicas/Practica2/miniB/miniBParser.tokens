@@ -41,7 +41,6 @@ FINAL_COMENTARIO_UL=40
 TEXTOCOMENTARIOUL=41
 '/*'=1
 '//'=2
-' '=3
 '='=4
 '>'=5
 '<'=6
