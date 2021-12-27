@@ -8,7 +8,6 @@ import org.antlr.v4.runtime.*;
 
 public class Analizador {
 
-
     public static void main(String[] args) throws Exception {
         String inputFile=null;
         if (args.length >0) inputFile= args[0];

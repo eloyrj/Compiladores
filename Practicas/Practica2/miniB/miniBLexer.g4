@@ -3,9 +3,6 @@ lexer grammar miniBLexer;
 COMENTARIOABRIR: '/*' -> pushMode(COMENTARIO_MULTILINEA_MODE);
 COMENTARIOLIEA: '//' -> pushMode(COMENTARIO_LINEA_MODE);
 
-
-
-
 //Operadores necesarios
 E: ' ';
 
