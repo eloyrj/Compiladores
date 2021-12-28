@@ -1,28 +1,26 @@
-.class public llamadaFuncionJ
+.class public F1parametroJ
 .super java/lang/Object
 
 .method public static main([Ljava/lang/String;)V
    .limit stack 100
    .limit locals 100
     
-
-    invokestatic llamadaFuncionJ/llamaFuncion()V
+    
+    ldc 3
+    invokestatic F1parametroJ/f(I)V
 
     return
 
 .end method
 
-.method public static llamaFuncion()V
+.method public static f(I)V
     .limit stack 100
     .limit locals 100
-
+    ;istore 1
     getstatic java/lang/System/out Ljava/io/PrintStream;
-    ldc "se ha entrado en la funcion"
-    invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+    iload 0
+    invokevirtual java/io/PrintStream/println(I)V
     
 
     return 
 .end method
-
-
-
