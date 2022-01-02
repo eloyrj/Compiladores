@@ -5,6 +5,7 @@ public class llamadaFuncion {
     }
 
     public void funcion(){
+
         System.out.println("Se ha llamado a la funcion ");
     }
 

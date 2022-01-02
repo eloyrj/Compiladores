@@ -1,4 +1,4 @@
-.class public Ifs
+.class public IfsJ
 .super java/lang/Object
 
 .method public static main([Ljava/lang/String;)V

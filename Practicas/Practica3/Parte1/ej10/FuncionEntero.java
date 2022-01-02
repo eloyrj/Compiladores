@@ -1,6 +1,7 @@
 public class FuncionEntero{
 
     public static int funcion(){
+
         return 11;
     }
 

@@ -4,6 +4,7 @@ public class F1parametro {
     }
 
     public void funcion(int i){
+
         System.out.println(i);
     }
 
