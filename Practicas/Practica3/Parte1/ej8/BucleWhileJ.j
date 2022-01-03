@@ -1,4 +1,4 @@
-.class public BucleWhile
+.class public BucleWhileJ
 .super java/lang/Object
 
 .method public static main([Ljava/lang/String;)V
@@ -9,7 +9,11 @@ ldc 15
 istore 1
 ldc 0
 istore 2
+iload 2
+iload 1
 
+
+if_icmpge noEntra
 bucleWhile:
     getstatic java/lang/System/out Ljava/io/PrintStream;
     iload 2
@@ -21,6 +25,7 @@ bucleWhile:
     iload 2
     iload 1
 if_icmplt bucleWhile
+noEntra:
 
 return
 

@@ -9,7 +9,10 @@ ldc 5
 istore 1
 ldc 1
 istore 2
+iload 2
+iload 1
 
+if_icmpge noEntra
 bucle:
 
     ldc 3
@@ -32,5 +35,7 @@ etiqueta1:
     getstatic java/lang/System/out Ljava/io/PrintStream;
     ldc "EXIT"
     invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+
+noEntra:
 return
 .end method

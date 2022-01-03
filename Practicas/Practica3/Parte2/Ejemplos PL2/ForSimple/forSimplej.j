@@ -9,7 +9,10 @@ ldc 5
 istore 1
 ldc 1
 istore 2
+iload 2
+iload 1
 
+if_icmpge noEntra
 bucle:
     getstatic java/lang/System/out Ljava/io/PrintStream;
     iload 2
@@ -22,6 +25,7 @@ bucle:
     iload 1
 if_icmplt bucle
 
+noEntra:
 return
 
 .end method
