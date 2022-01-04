@@ -1,11 +1,11 @@
-// Generated from miniBParser.g4 by ANTLR 4.9.2
+// Generated from miniB.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
  * This interface defines a complete listener for a parse tree produced by
  * {@link miniBParser}.
  */
-public interface miniBParserListener extends ParseTreeListener {
+public interface miniBListener extends ParseTreeListener {
 	/**
 	 * Enter a parse tree produced by {@link miniBParser#fichero}.
 	 * @param ctx the parse tree
@@ -16,26 +16,6 @@ public interface miniBParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFichero(miniBParser.FicheroContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link miniBParser#comentario}.
-	 * @param ctx the parse tree
-	 */
-	void enterComentario(miniBParser.ComentarioContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link miniBParser#comentario}.
-	 * @param ctx the parse tree
-	 */
-	void exitComentario(miniBParser.ComentarioContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link miniBParser#textos}.
-	 * @param ctx the parse tree
-	 */
-	void enterTextos(miniBParser.TextosContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link miniBParser#textos}.
-	 * @param ctx the parse tree
-	 */
-	void exitTextos(miniBParser.TextosContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link miniBParser#prog}.
 	 * @param ctx the parse tree
@@ -155,111 +135,29 @@ public interface miniBParserListener extends ParseTreeListener {
 	 */
 	void exitWhile(miniBParser.WhileContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link miniBParser#operacion}.
+	 * Enter a parse tree produced by the {@code Operar}
+	 * labeled alternative in {@link miniBParser#operacion}.
 	 * @param ctx the parse tree
 	 */
-	void enterOperacion(miniBParser.OperacionContext ctx);
+	void enterOperar(miniBParser.OperarContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link miniBParser#operacion}.
+	 * Exit a parse tree produced by the {@code Operar}
+	 * labeled alternative in {@link miniBParser#operacion}.
 	 * @param ctx the parse tree
 	 */
-	void exitOperacion(miniBParser.OperacionContext ctx);
+	void exitOperar(miniBParser.OperarContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Sumar}
-	 * labeled alternative in {@link miniBParser#suma}.
+	 * Enter a parse tree produced by the {@code Sumando}
+	 * labeled alternative in {@link miniBParser#operacion}.
 	 * @param ctx the parse tree
 	 */
-	void enterSumar(miniBParser.SumarContext ctx);
+	void enterSumando(miniBParser.SumandoContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Sumar}
-	 * labeled alternative in {@link miniBParser#suma}.
+	 * Exit a parse tree produced by the {@code Sumando}
+	 * labeled alternative in {@link miniBParser#operacion}.
 	 * @param ctx the parse tree
 	 */
-	void exitSumar(miniBParser.SumarContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code SumandoSuma}
-	 * labeled alternative in {@link miniBParser#suma}.
-	 * @param ctx the parse tree
-	 */
-	void enterSumandoSuma(miniBParser.SumandoSumaContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code SumandoSuma}
-	 * labeled alternative in {@link miniBParser#suma}.
-	 * @param ctx the parse tree
-	 */
-	void exitSumandoSuma(miniBParser.SumandoSumaContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Restar}
-	 * labeled alternative in {@link miniBParser#resta}.
-	 * @param ctx the parse tree
-	 */
-	void enterRestar(miniBParser.RestarContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Restar}
-	 * labeled alternative in {@link miniBParser#resta}.
-	 * @param ctx the parse tree
-	 */
-	void exitRestar(miniBParser.RestarContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code SumandoResta}
-	 * labeled alternative in {@link miniBParser#resta}.
-	 * @param ctx the parse tree
-	 */
-	void enterSumandoResta(miniBParser.SumandoRestaContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code SumandoResta}
-	 * labeled alternative in {@link miniBParser#resta}.
-	 * @param ctx the parse tree
-	 */
-	void exitSumandoResta(miniBParser.SumandoRestaContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Multiplicar}
-	 * labeled alternative in {@link miniBParser#multiplicacion}.
-	 * @param ctx the parse tree
-	 */
-	void enterMultiplicar(miniBParser.MultiplicarContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Multiplicar}
-	 * labeled alternative in {@link miniBParser#multiplicacion}.
-	 * @param ctx the parse tree
-	 */
-	void exitMultiplicar(miniBParser.MultiplicarContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code SumandoMul}
-	 * labeled alternative in {@link miniBParser#multiplicacion}.
-	 * @param ctx the parse tree
-	 */
-	void enterSumandoMul(miniBParser.SumandoMulContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code SumandoMul}
-	 * labeled alternative in {@link miniBParser#multiplicacion}.
-	 * @param ctx the parse tree
-	 */
-	void exitSumandoMul(miniBParser.SumandoMulContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Dividir}
-	 * labeled alternative in {@link miniBParser#division}.
-	 * @param ctx the parse tree
-	 */
-	void enterDividir(miniBParser.DividirContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Dividir}
-	 * labeled alternative in {@link miniBParser#division}.
-	 * @param ctx the parse tree
-	 */
-	void exitDividir(miniBParser.DividirContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code SumandoDiv}
-	 * labeled alternative in {@link miniBParser#division}.
-	 * @param ctx the parse tree
-	 */
-	void enterSumandoDiv(miniBParser.SumandoDivContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code SumandoDiv}
-	 * labeled alternative in {@link miniBParser#division}.
-	 * @param ctx the parse tree
-	 */
-	void exitSumandoDiv(miniBParser.SumandoDivContext ctx);
+	void exitSumando(miniBParser.SumandoContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link miniBParser#sumandos}.
 	 * @param ctx the parse tree

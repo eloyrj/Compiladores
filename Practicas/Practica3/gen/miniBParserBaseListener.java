@@ -1,4 +1,4 @@
-// Generated from miniBParser.g4 by ANTLR 4.9.2
+// Generated from C:/Users/Usuario/Documents/GitHub/Compiladores/Practicas/Practica3/Parte2/miniB\miniBParser.g4 by ANTLR 4.9.2
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -171,109 +171,25 @@ public class miniBParserBaseListener implements miniBParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOperacion(miniBParser.OperacionContext ctx) { }
+	@Override public void enterOperar(miniBParser.OperarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOperacion(miniBParser.OperacionContext ctx) { }
+	@Override public void exitOperar(miniBParser.OperarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSumar(miniBParser.SumarContext ctx) { }
+	@Override public void enterSumando(miniBParser.SumandoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSumar(miniBParser.SumarContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSumandoSuma(miniBParser.SumandoSumaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSumandoSuma(miniBParser.SumandoSumaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterRestar(miniBParser.RestarContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitRestar(miniBParser.RestarContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSumandoResta(miniBParser.SumandoRestaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSumandoResta(miniBParser.SumandoRestaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMultiplicar(miniBParser.MultiplicarContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMultiplicar(miniBParser.MultiplicarContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSumandoMul(miniBParser.SumandoMulContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSumandoMul(miniBParser.SumandoMulContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDividir(miniBParser.DividirContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDividir(miniBParser.DividirContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSumandoDiv(miniBParser.SumandoDivContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSumandoDiv(miniBParser.SumandoDivContext ctx) { }
+	@Override public void exitSumando(miniBParser.SumandoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

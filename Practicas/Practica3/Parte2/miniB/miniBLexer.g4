@@ -57,8 +57,7 @@ REM: 'REM';
 STRING:[a-zA-Z]+;
 STRINGCOM: '"'[a-zA-Z' ':¡!=]+'"';
 
-TAB: E+;
-INTROTAB: INTRO TAB*;
+
 INTRO: [\r\n]+;
 INT: [0-9]+;
 
