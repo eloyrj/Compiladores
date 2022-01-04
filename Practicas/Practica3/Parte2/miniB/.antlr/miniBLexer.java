@@ -1,4 +1,4 @@
-// Generated from /home/corte/Documentos/Repositorios/Compiladores/Practicas/Practica2/miniB/miniBLexer.g4 by ANTLR 4.8
+// Generated from /home/corte/Documentos/Repositorios/Compiladores/Practicas/Practica3/Parte2/miniB/miniBLexer.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
