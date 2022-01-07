@@ -5,10 +5,12 @@ public class Simbolo {
 
     public EnumTipo tipo;
     public Object valor;
+    public int almacenado;
 
-    public Simbolo(EnumTipo tipo, Object valor){
+    public Simbolo(EnumTipo tipo, Object valor,int almacenado){
         this.tipo  = tipo;
         this.valor = valor;
+        this.almacenado = almacenado;
     }
 
     

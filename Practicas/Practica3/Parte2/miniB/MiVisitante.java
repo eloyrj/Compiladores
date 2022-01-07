@@ -1,43 +1,102 @@
-public class MiVisitante extends miniBParserBaseVisitor<String> {
+public class MiVisitante extends miniBBaseVisitor<String>{
+    int vecesIf=0;
+    int store = 1;
+    TablaSimbolos tablaSimbolos = new TablaSimbolos(null);
 
     @Override
-    public String visitSumar(miniBParser.SumarContext ctx) {
-        return visitChildren(ctx) + "\nldc " + ctx.opizquierda.getText() + "\n" + "iadd";
+    public String visitOPERACIONES(miniBParser.OPERACIONESContext ctx){
+        String oper = null;
+        if(ctx.operador.getText().equals("+")){
+            oper = "iadd";
+        }else if (ctx.operador.getText().equals("-")){
+            oper ="isub";
+        }else if (ctx.operador.getText().equals("*")){
+            oper = "imul";
+        }else if(ctx.operador.getText().equals("/")){
+            oper = "idiv";
+        }else if(ctx.operador.getText().equals("mod") || ctx.operador.getText().equals("MOD")){
+            return visitChildren(ctx) + "\nistore 1" +"\nldc " + ctx.right.getText() + "\n" + "istore 2\niload 1\niload 2\nidiv\nistore 3\niload 2\niload 3\nimul\nistore 3\niload 1\niload 3\nisub\n";
+        }
+        return visitChildren(ctx) + "\nldc " + ctx.right.getText() + "\n" + oper;
+    }
+	
+	@Override
+    public String visitNumberES(miniBParser.NumberESContext ctx){
+        return "ldc " + ctx.number.getText();
     }
 
     @Override
-    public String visitRestar(miniBParser.RestarContext ctx) {
-        return visitChildren(ctx) + "\nldc " + ctx.opizquierda.getText() + "\n" + "isub";
+    public String visitImprimir(miniBParser.ImprimirContext ctx){
+        String imprimeTipo = "";
+        
+        if(ctx.impComillas!= null){
+            imprimeTipo =  "ldc "+ctx.impComillas.getText() + " \n" +"   invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V \n";
+        }else{
+            imprimeTipo = visitChildren(ctx) + " \n" + "   invokevirtual java/io/PrintStream/println(I)V\n";
+        }
+
+        return "   getstatic java/lang/System/out Ljava/io/PrintStream;\n" + imprimeTipo + "\n" ;
+
     }
 
     @Override
-    public String visitMultiplicar(miniBParser.MultiplicarContext ctx) {
-        return visitChildren(ctx) + "\nldc " + ctx.opizquierda.getText() + "\n" + "imul";
+    public String visitIf(miniBParser.IfContext ctx){
+    
+        String comparador= "";
+        if(ctx.comparador.getText().equals(">")){
+            comparador = "if_icmpgt etiqueta"+vecesIf;
+        }else if(ctx.comparador.getText().equals("<")){
+            comparador = "if_icmplt etiqueta"+vecesIf;
+        }else if(ctx.comparador.getText().equals("=")){
+            comparador = "if_icmpeq etiqueta"+vecesIf;
+        }
+        int etiqueta1= vecesIf;
+        vecesIf++;
+
+        String comandosTrue = "";
+        if(ctx.inst1!=null){
+            comandosTrue = visit(ctx.inst1) + "etiqueta"+vecesIf+":" ;
+        }else if(ctx.conti != null){
+            comandosTrue = "etiqueta"+vecesIf+":";
+        }else if(ctx.exit != null){
+            comandosTrue = "etiqueta"+vecesIf+":";
+        }        
+        int etiqueta2 = vecesIf;
+        vecesIf++;
+        
+        
+        return "ldc "+ctx.op1if.getText()+ "\nldc " + ctx.op2if.getText() + "\n" + comparador +"\n"+ visit(ctx.inst2) + "goto etiqueta"+etiqueta2+"\netiqueta"+etiqueta1+":\n"+comandosTrue;
     }
 
     @Override
-    public String visitDividir(miniBParser.DividirContext ctx) {
-        return visitChildren(ctx) + "\nldc " + ctx.opizquierda.getText() + "\n" + "idiv";
+    public String visitLETT(miniBParser.LETTContext ctx){
+        if (tablaSimbolos.buscar(ctx.nombre.getText())==null){
+            Simbolo.EnumTipo tipo = null;
+            String tipostore = "";
+            Object valor = null;
+            if(ctx.valori!=null){
+                tipo= Simbolo.EnumTipo.Integer;
+                tipostore = "istore ";
+                valor = ctx.valori.getText();
+            }else if(ctx.valors != null){
+                tipo = Simbolo.EnumTipo.String;
+                tipostore = "astore ";
+                valor = ctx.valors.getText();
+            }else if(ctx.valorf != null){
+                tipo = Simbolo.EnumTipo.String;
+                tipostore = "astore ";
+                valor = visitChildren(ctx);
+            }
+
+            Simbolo s = new Simbolo(tipo, valor, store);
+            store++;
+            tablaSimbolos.insertar(ctx.nombre.getText(), s);
+            String result = "ldc "+valor+"\n"+tipostore+s.almacenado+"\n"; 
+            return result;
+        }
+        return "";
     }
 
-    @Override public T visitSumandoSuma(miniBParser.SumandoSumaContext ctx) {
-        return "ldc " + ctx.sumadd.getText();
-    }
-
-    @Override public T visitSumandoResta(miniBParser.SumandoRestaContext ctx) {
-        return "ldc " + ctx.sumsub.getText();
-    }
-
-    @Override public T visitSumandoMul(miniBParser.SumandoMulContext ctx) {
-        return "ldc " + ctx.summul.getText();
-    }
-
-    @Override public T visitSumandoDiv(miniBParser.SumandoDivContext ctx) {
-        return "ldc " + ctx.sumdiv.getText();
-    }
-
-
-    @Override
     protected String aggregateResult(String aggregate, String nextResult) {
         if (aggregate == null) {
             return nextResult;
@@ -47,4 +106,6 @@ public class MiVisitante extends miniBParserBaseVisitor<String> {
         }
         return aggregate + "\n" + nextResult;
     }
+
+
 }

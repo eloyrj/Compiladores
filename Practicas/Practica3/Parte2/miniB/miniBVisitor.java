@@ -36,12 +36,12 @@ public interface miniBVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitImprimir(miniBParser.ImprimirContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Lett}
+	 * Visit a parse tree produced by the {@code LETT}
 	 * labeled alternative in {@link miniBParser#let}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLett(miniBParser.LettContext ctx);
+	T visitLETT(miniBParser.LETTContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Asignar}
 	 * labeled alternative in {@link miniBParser#asignacion}.
@@ -85,19 +85,19 @@ public interface miniBVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWhile(miniBParser.WhileContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Operar}
+	 * Visit a parse tree produced by the {@code OPERACIONES}
 	 * labeled alternative in {@link miniBParser#operacion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOperar(miniBParser.OperarContext ctx);
+	T visitOPERACIONES(miniBParser.OPERACIONESContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Sumando}
+	 * Visit a parse tree produced by the {@code NumberES}
 	 * labeled alternative in {@link miniBParser#operacion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSumando(miniBParser.SumandoContext ctx);
+	T visitNumberES(miniBParser.NumberESContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link miniBParser#sumandos}.
 	 * @param ctx the parse tree
@@ -119,12 +119,26 @@ public interface miniBVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitETipo(miniBParser.ETipoContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Funcion}
+	 * Visit a parse tree produced by the {@code FuncionInt}
 	 * labeled alternative in {@link miniBParser#funciones}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFuncion(miniBParser.FuncionContext ctx);
+	T visitFuncionInt(miniBParser.FuncionIntContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FuncionStrings}
+	 * labeled alternative in {@link miniBParser#funciones}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncionStrings(miniBParser.FuncionStringsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Funcionfuncion}
+	 * labeled alternative in {@link miniBParser#funciones}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncionfuncion(miniBParser.FuncionfuncionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Rm}
 	 * labeled alternative in {@link miniBParser#rem}.

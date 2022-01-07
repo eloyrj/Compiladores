@@ -25,7 +25,6 @@ public class TablaSimbolos {
                 return s;
             }
         }
-        System.out.println("La variable no existe");
         return null;
     }
 
