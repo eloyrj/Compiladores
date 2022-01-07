@@ -8,7 +8,7 @@ prog: (let|repeat|buclefor|condicionalif|print|input|buclewhile|errorsintactico|
 
 instruccion: ( print |let |asignacion ) #Inst;
 
-print: PRINT  (impComillas = STRINGCOM|funciones|operacion)  #Imprimir;
+print: PRINT  (impComillas = STRINGCOM|ps=STRING|pf=funciones|po=operacion)  #Imprimir;
 
 let: LET nombre=STRING IGUAL (valors=STRINGCOM|valori=INT|valorf=funciones) #LETT;
 
@@ -45,9 +45,9 @@ errortipo: ((LET STRING IGUAL COMILLAS INT COMILLAS)|(PRINT STRING (MENOS|MAS|EN
            | (STRING PARENTESISA INT+ PARENTESISC) ) #ETipo;
 
 //Funciones
-funciones: STRING PARENTESISA COMILLAS INT+ COMILLAS PARENTESISC #FuncionInt
-        |STRING PARENTESISA (STRINGCOM|STRING) PARENTESISC #FuncionStrings
-        |STRING PARENTESISA funciones PARENTESISC #Funcionfuncion;
+funciones: nFun=STRING PARENTESISA COMILLAS valorFun=INT+ COMILLAS PARENTESISC #FuncionInt
+        |nFun=STRING PARENTESISA valorFun=(STRINGCOM|STRING) PARENTESISC #FuncionStrings
+        |nFun=STRING PARENTESISA valorFun=funciones PARENTESISC #Funcionfuncion;
 
 rem: (REM (STRING )+ ) #Rm;
 

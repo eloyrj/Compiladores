@@ -1,1 +1,2 @@
-2-2+3
+LET i = 2
+PRINT i
