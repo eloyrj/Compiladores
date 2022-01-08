@@ -156,7 +156,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             tablaSimbolos.insertar(ctx.nombre.getText(), s);
             return "ldc " + valor + "\n" + tipostore + s.almacenado + "\n";
         }
-        return "";
+        return "Error: la variable "+ctx.nombre.getText()+ " no existe";
     }
 
     @Override
@@ -331,6 +331,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             + "\n" + primeraV+"\n"+segundaV+"\n" +"if_icmplt etiqueta" + etiqueta ;
     }
 
+    
     protected String aggregateResult(String aggregate, String nextResult) {
         if (aggregate == null) {
             return nextResult;
