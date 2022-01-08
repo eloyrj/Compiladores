@@ -5,19 +5,26 @@
    .limit stack 100
    .limit locals 100
 
-   getstatic java/lang/System/out Ljava/io/PrintStream;
-ldc 123 
+new java/util/Scanner
+dup
+getstatic java/lang/System/in Ljava/io/InputStream;
+invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V
+astore_1
+
+aload_1
+invokevirtual java/util/Scanner/nextInt()I
+istore_2
+
+getstatic java/lang/System/out Ljava/io/PrintStream;
+
+   ldc "has pulsado "
+
+invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+getstatic java/lang/System/out Ljava/io/PrintStream;
+
+iload 2
+
    invokevirtual java/io/PrintStream/println(I)V
-
-
-   getstatic java/lang/System/out Ljava/io/PrintStream;
-ldc 5 
-   invokevirtual java/io/PrintStream/println(I)V
-
-
-   getstatic java/lang/System/out Ljava/io/PrintStream;
-ldc "True" 
-   invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V 
 
 
 return

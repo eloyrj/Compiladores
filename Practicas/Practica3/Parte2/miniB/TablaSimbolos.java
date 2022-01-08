@@ -28,4 +28,12 @@ public class TablaSimbolos {
         return null;
     }
 
+    public void actualizarV(String n,Object valor){
+        Simbolo s = buscar(n);
+        s.valor=valor;
+        tabla.remove(n);
+        tabla.put(n, s);
+    }
+
+
 }

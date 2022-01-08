@@ -12,18 +12,18 @@ print: PRINT  (impComillas = STRINGCOM|ps=STRING|pf=funciones|po=operacion)  #Im
 
 let: LET nombre=STRING IGUAL (valors=STRINGCOM|valori=INT|valorf=funciones) #LETT;
 
-asignacion: (STRING IGUAL (funciones|operacion|(STRING MOD STRING)|STRING|INT) ) #Asignar;
+asignacion: (nombre=STRING IGUAL (str=STRING|numero=INT|funciones|op=operacion) ) #Asignar;
 
-buclefor: (FOR STRING IGUAL INT TO INT INTRO ((condicionalif|instruccion ) INTRO)+ NEXT) #For;
+buclefor: (FOR variableFor=STRING IGUAL valorFor=INT TO igualacion=INT INTRO ((condicionalif|instruccion ) INTRO)+ NEXT) #For;
 
 condicionalif: IF ((op1if=(STRING|INT) comparador=(MAYORQUE|MENORQUE|IGUAL) op2if=(STRING|INT))|STRING|INT) THEN INTRO
         ((conti=CONTINUE|exit=EXIT|inst1=instruccion) INTRO)+ (ELSE INTRO (inst2=instruccion INTRO)+)* END  #If;
 
 input: (INPUT STRINGCOM STRING) #Introducir;
 
-repeat: (REPEAT INTRO (instruccion INTRO)+ UNTIL instruccion) #Repetir;
+repeat: (REPEAT INTRO (instruccion INTRO)+ UNTIL var=STRING IGUAL Var2=INT) #Repetir;
 
-buclewhile: WHILE (STRING|INT|STRING) (MAYORQUE|MENORQUE|IGUAL) (STRING|INT) INTRO ((instruccion|let) INTRO)+ END #While;
+buclewhile: WHILE v1=(STRING|INT) operador=(MAYORQUE|MENORQUE|IGUAL) v2=(STRING|INT) INTRO ((instruccion|let) INTRO)+ END #While;
 
 operacion: left=operacion operador=(MAS|MENOS|POR|ENTRE|MOD) right=sumandos #OPERACIONES
 		| number=sumandos #NumberES
