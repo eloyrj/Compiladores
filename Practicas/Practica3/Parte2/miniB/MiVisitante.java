@@ -3,11 +3,12 @@ public class MiVisitante extends miniBBaseVisitor<String> {
     int store = 1;
     TablaSimbolos tablaSimbolos = new TablaSimbolos(null);
     int salirBucle;
+    boolean esStrc = false;
 
     @Override
     public String visitOPERACIONES(miniBParser.OPERACIONESContext ctx) {
         String primeraV = "";
-        if (esNumero(ctx.right.getText())) {
+        if (esNumero(ctx.right.getText()) && ctx.right == null) {
             primeraV = "ldc " + ctx.right.getText();
         } else {
             primeraV = "iload " + tablaSimbolos.buscar(ctx.right.getText()).almacenado;
@@ -23,9 +24,26 @@ public class MiVisitante extends miniBBaseVisitor<String> {
         } else if (ctx.operador.getText().equals("/")) {
             oper = "idiv";
         } else if (ctx.operador.getText().equals("mod") || ctx.operador.getText().equals("MOD")) {
+            int etiqueta1 = store;
+            store++;
+            int etiqueta2 = store;
+            store++;
+            int etiqueta3 = store;
+            store++;
 
-            return visitChildren(ctx) + "\nistore 1" + "\n" + primeraV + "\n"
-                    + "istore 2\niload 1\niload 2\nidiv\nistore 3\niload 2\niload 3\nimul\nistore 3\niload 1\niload 3\nisub\n";
+            return visitChildren(ctx) + "\nistore " + etiqueta1 + "\n" + primeraV + "\n"
+                    + "istore " + etiqueta2 + "\niload " + etiqueta1 + "\niload " + etiqueta2 + "\nidiv\nistore "
+                    + etiqueta3 + "\niload " + etiqueta2 + "\niload " + etiqueta3 + "\nimul\nistore " + etiqueta3
+                    + "\niload " + etiqueta1 + "\niload " + etiqueta3 + "\nisub";
+        }
+        visitChildren(ctx);
+        if (ctx.right.strc != null || esStrc) {
+            esStrc = false;
+
+            return visitChildren(ctx)
+                    + primeraV
+                    + "\ninvokevirtual StringBuilder/append(LString;)LStringBuilder;"
+                    + "\ninvokevirtual StringBuilder/toString()LString;";
         }
         return visitChildren(ctx) + "\n" + primeraV + "\n" + oper;
     }
@@ -33,12 +51,22 @@ public class MiVisitante extends miniBBaseVisitor<String> {
     @Override
     public String visitNumberES(miniBParser.NumberESContext ctx) {
         String primeraV = "";
-        if (esNumero(ctx.number.getText())) {
+        if (esNumero(ctx.number.getText())  ) {
             primeraV = "ldc " + ctx.number.getText();
-        } else {
+        } else if (ctx.number.strc == null) {
             primeraV = "iload " + tablaSimbolos.buscar(ctx.number.getText()).almacenado;
         }
+        
+        if (ctx.number.strc != null) {
+            esStrc = true;
+            return "new class StringBuilder"
+                    + "\ndup"
+                    + "\ninvokespecial StringBuilder/<init>" 
+                    + "\nldc "+ ctx.number.getText() 
+                    + "\ninvokevirtual StringBuilder/append(LString;)LStringBuilder;\n";
+        }
         return primeraV;
+        
     }
 
     @Override
@@ -156,17 +184,17 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             tablaSimbolos.insertar(ctx.nombre.getText(), s);
             return "ldc " + valor + "\n" + tipostore + s.almacenado + "\n";
         }
-        return "Error: la variable "+ctx.nombre.getText()+ " no existe";
+        return "Error: la variable " + ctx.nombre.getText() + " no existe";
     }
 
     @Override
     public String visitFuncionInt(miniBParser.FuncionIntContext ctx) {
         if (ctx.nFun.getText().equals("VAL")) {
-            return ctx.valorFun.getText();
+            return "ldc " + ctx.valorFun.getText();
         } else if (ctx.nFun.getText().equals("LEN")) {
-            return Integer.toString(ctx.valorFun.getText().length());
+            return "ldc " + Integer.toString(ctx.valorFun.getText().length());
         } else if (ctx.nFun.getText().equals("ISNAN")) {
-            return "False";
+            return "ldc " + '"' + "False" + '"';
         }
         return "Error: La funcion no existe";
     }
@@ -174,11 +202,25 @@ public class MiVisitante extends miniBBaseVisitor<String> {
     @Override
     public String visitFuncionStrings(miniBParser.FuncionStringsContext ctx) {
         if (ctx.nFun.getText().equals("VAL")) {
-            return ctx.valorFun.getText();
+            if (ctx.vsc != null) {
+                return "ldc " + ctx.vsc.getText();
+            } else {
+                Simbolo s = tablaSimbolos.buscar(ctx.vs.getText());
+                return "iload " + s.almacenado;
+            }
         } else if (ctx.nFun.getText().equals("LEN")) {
-            return Integer.toString(ctx.valorFun.getText().length());
+            if (ctx.vsc != null) {
+                return "ldc " + Integer.toString(ctx.vsc.getText().length());
+            } else {
+                Simbolo s = tablaSimbolos.buscar(ctx.vs.getText());
+                return "iload " + s.almacenado;
+            }
         } else if (ctx.nFun.getText().equals("ISNAN")) {
-            return "True";
+            if (ctx.vsc != null) {
+                return "ldc " + '"' + "True" + '"';
+            } else {
+                return "ldc " + '"' + "False" + '"';
+            }
         }
         return "Error: La funcion no existe";
     }
@@ -186,18 +228,18 @@ public class MiVisitante extends miniBBaseVisitor<String> {
     @Override
     public String visitFuncionfuncion(miniBParser.FuncionfuncionContext ctx) {
         if (ctx.nFun.getText().equals("VAL")) {
-            return ctx.valorFun.getText();
+            return "ldc " + ctx.valorFun.getText();
         } else if (ctx.nFun.getText().equals("LEN")) {
-            return Integer.toString(ctx.valorFun.getText().length());
+            return "ldc " + Integer.toString(ctx.valorFun.getText().length());
         } else if (ctx.nFun.getText().equals("ISNAN")) {
 
             for (int i = 0; i < visitChildren(ctx).length(); i++) {
                 char a = visitChildren(ctx).charAt(i);
                 if (!Character.isDigit(a)) {
-                    return "True";
+                    return "ldc " + '"' + "True" + '"';
                 }
             }
-            return "'False'";
+            return "ldc " + '"' + "False" + '"';
         }
         return "Error: La funcion no existe";
     }
@@ -206,7 +248,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
     public String visitFor(miniBParser.ForContext ctx) {
         if (tablaSimbolos.buscar(ctx.variableFor.getText()) == null) {
             Simbolo.EnumTipo tipo = Simbolo.EnumTipo.Integer;
-            Simbolo s = new Simbolo(tipo,store);
+            Simbolo s = new Simbolo(tipo, store);
             store++;
             tablaSimbolos.insertar(ctx.variableFor.getText(), s);
             int etiqueta1 = vecesIf;
@@ -218,7 +260,6 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             int st1 = s.almacenado;
             int st2 = store;
             store++;
-            
 
             return "iload " + tablaSimbolos.buscar(ctx.variableFor.getText()).almacenado + "\nistore " + st1
                     + "\nldc " + ctx.igualacion.getText() + "\nistore " + st2 + "\niload 1\niload 2\nif_icmpge etiqueta"
@@ -233,22 +274,21 @@ public class MiVisitante extends miniBBaseVisitor<String> {
     @Override
     public String visitWhile(miniBParser.WhileContext ctx) {
         String primeraV = "";
-        int eti1=0;
+        int eti1 = 0;
         if (esNumero(ctx.v1.getText())) {
-            primeraV = "ldc " + ctx.v1.getText()+"\nistore "+store+"\niload "+store;
-            eti1= store;
+            primeraV = "ldc " + ctx.v1.getText() + "\nistore " + store + "\niload " + store;
+            eti1 = store;
             store++;
         } else {
             primeraV = "iload " + tablaSimbolos.buscar(ctx.v1.getText()).almacenado;
             eti1 = tablaSimbolos.buscar(ctx.v1.getText()).almacenado;
         }
-        
 
         String segundaV = "";
-        int eti2=0;
+        int eti2 = 0;
         if (esNumero(ctx.v2.getText())) {
-            segundaV = "ldc " + ctx.v2.getText()+"\nistore "+store+"\niload "+store;
-            eti2= store;
+            segundaV = "ldc " + ctx.v2.getText() + "\nistore " + store + "\niload " + store;
+            eti2 = store;
             store++;
         } else {
             segundaV = "iload " + tablaSimbolos.buscar(ctx.v2.getText()).almacenado;
@@ -257,11 +297,14 @@ public class MiVisitante extends miniBBaseVisitor<String> {
 
         String comparador = "";
         if (ctx.operador.getText().equals(">")) {
-            comparador = "if_icmplt etiqueta" + vecesIf + "\n" + "iload "+eti1+"\niload "+eti2+ "\n"+ "\nif_icmpeq etiqueta" + vecesIf;
+            comparador = "if_icmplt etiqueta" + vecesIf + "\n" + "iload " + eti1 + "\niload " + eti2 + "\n"
+                    + "\nif_icmpeq etiqueta" + vecesIf;
         } else if (ctx.operador.getText().equals("<")) {
-            comparador = "if_icmpgt etiqueta" + vecesIf + "\n" + "iload "+eti1+"\niload "+eti2+ "\n"+ "\nif_icmpeq etiqueta" + vecesIf;
+            comparador = "if_icmpgt etiqueta" + vecesIf + "\n" + "iload " + eti1 + "\niload " + eti2 + "\n"
+                    + "\nif_icmpeq etiqueta" + vecesIf;
         } else if (ctx.operador.getText().equals("=")) {
-            comparador = "if_icmpgt etiqueta" + vecesIf + "\n" + "iload "+eti1+"\niload "+eti2+ "\n"+ "\nif_icmplt etiqueta" + vecesIf;
+            comparador = "if_icmpgt etiqueta" + vecesIf + "\n" + "iload " + eti1 + "\niload " + eti2 + "\n"
+                    + "\nif_icmplt etiqueta" + vecesIf;
         }
 
         int etiqueta1 = vecesIf;
@@ -279,37 +322,44 @@ public class MiVisitante extends miniBBaseVisitor<String> {
         vecesIf++;
 
         return primeraV + "\n" + segundaV + "\n" + comparador + "\netiqueta" + etiqueta2 + ":\n" + visitChildren(ctx)
-            + "\n" + "iload "+eti1+"\niload "+eti2+ "\n" +comparador2 + "\netiqueta" + etiqueta1 + ":";
+                + "\n" + "iload " + eti1 + "\niload " + eti2 + "\n" + comparador2 + "\netiqueta" + etiqueta1 + ":";
     }
 
     @Override
     public String visitAsignar(miniBParser.AsignarContext ctx) {
+        if (tablaSimbolos.buscar(ctx.nombre.getText()) == null) {
+            Simbolo s = new Simbolo(Simbolo.EnumTipo.Integer, store);
+            tablaSimbolos.insertar(ctx.nombre.getText(), s);
+            store++;
+        }
 
         String tipostore = "";
-        Object valor = null;
         if (ctx.numero != null) {
             tipostore = "istore ";
-            valor = ctx.numero.getText();
         } else if (ctx.str != null) {
-            Simbolo s = tablaSimbolos.buscar(ctx.nombre.getText());
-            if(s.tipo == Simbolo.EnumTipo.Integer){
-                tipostore = "iload "+s.almacenado+"\nistore ";
-            }else if (s.tipo == Simbolo.EnumTipo.String){
-                tipostore = "aload "+s.almacenado+"\nastore ";
+            Simbolo s = tablaSimbolos.buscar(ctx.str.getText());
+            if (s.tipo == Simbolo.EnumTipo.Integer) {
+                tipostore = "iload " + s.almacenado + "\nistore ";
+            } else if (s.tipo == Simbolo.EnumTipo.String) {
+                tipostore = "aload " + s.almacenado + "\nastore ";
             }
         } else if (ctx.op != null) {
             tipostore = "istore ";
-            valor = visitChildren(ctx);
+            Simbolo s = tablaSimbolos.buscar(ctx.nombre.getText());
+            store++;
+            return visitChildren(ctx) + "\n" + tipostore + s.almacenado;
+        } else if (ctx.f != null) {
+            Simbolo s = tablaSimbolos.buscar(ctx.nombre.getText());
+            return visitChildren(ctx) + "\n" + "istore " + s.almacenado;
         }
 
         Simbolo s = tablaSimbolos.buscar(ctx.nombre.getText());
         store++;
-        return visitChildren(ctx) + "\n" + tipostore + s.almacenado;
+        return tipostore + s.almacenado;
     }
 
     @Override
-    public String visitRepetir(miniBParser.RepetirContext ctx){
-
+    public String visitRepetir(miniBParser.RepetirContext ctx) {
 
         String primeraV = "";
         if (esNumero(ctx.var.getText())) {
@@ -317,8 +367,6 @@ public class MiVisitante extends miniBBaseVisitor<String> {
         } else {
             primeraV = "iload " + tablaSimbolos.buscar(ctx.var.getText()).almacenado;
         }
-        
-        
 
         String segundaV = "";
         if (esNumero(ctx.Var2.getText())) {
@@ -327,33 +375,33 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             segundaV = "iload " + tablaSimbolos.buscar(ctx.Var2.getText()).almacenado;
         }
         int etiqueta = vecesIf;
-       
-        return "etiqueta"+ etiqueta+":\n" + visitChildren(ctx)
-            + "\n" + primeraV+"\n"+segundaV+"\n" +"if_icmplt etiqueta" + etiqueta ;
+
+        return "etiqueta" + etiqueta + ":\n" + visitChildren(ctx)
+                + "\n" + primeraV + "\n" + segundaV + "\n" + "if_icmplt etiqueta" + etiqueta;
     }
 
     @Override
-    public String visitIntroducir(miniBParser.IntroducirContext ctx){
+    public String visitIntroducir(miniBParser.IntroducirContext ctx) {
         String peticion = "getstatic java/lang/System/out Ljava/io/PrintStream;"
-        +"\nldc "+'"'+"has pulsado"+'"'
-        +"\ninvokevirtual java/io/PrintStream/println(Ljava/lang/String;)V";
+                + "\nldc " + '"' + "introduce un valor" + '"'
+                + "\ninvokevirtual java/io/PrintStream/println(Ljava/lang/String;)V";
         int llamadaScanner = store;
         store++;
         String imputString = "new java/util/Scanner"
-        +"\ndup"
-        +"\ngetstatic java/lang/System/in Ljava/io/InputStream;"
-        +"\ninvokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V"
-        +"astore " + llamadaScanner
-        +"aload " + llamadaScanner
-        +"invokevirtual java/util/Scanner/nextInt()I"
-        +"istore " + store;
+                + "\ndup"
+                + "\ngetstatic java/lang/System/in Ljava/io/InputStream;"
+                + "\ninvokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V"
+                + "\nastore " + llamadaScanner
+                + "\naload " + llamadaScanner
+                + "\ninvokevirtual java/util/Scanner/nextInt()I"
+                + "\nistore " + store;
         int etiqueta = store;
         store++;
 
         Simbolo s = new Simbolo(Simbolo.EnumTipo.Integer, etiqueta);
         tablaSimbolos.insertar(ctx.variable.getText(), s);
 
-        return peticion+"\n"+imputString;   
+        return peticion + "\n" + imputString;
 
     }
 

@@ -12,7 +12,7 @@ print: PRINT  (impComillas = STRINGCOM|ps=STRING|pf=funciones|po=operacion)  #Im
 
 let: LET nombre=STRING IGUAL (valors=STRINGCOM|valori=INT|valorf=funciones) #LETT;
 
-asignacion: (nombre=STRING IGUAL (str=STRING|numero=INT|funciones|op=operacion) ) #Asignar;
+asignacion: (nombre=STRING IGUAL (str=STRING|numero=INT|f=funciones|op=operacion) ) #Asignar;
 
 buclefor: (FOR variableFor=STRING IGUAL valorFor=INT TO igualacion=INT INTRO ((condicionalif|instruccion ) INTRO)+ NEXT) #For;
 
@@ -31,7 +31,7 @@ operacion: left=operacion operador=(MAS|MENOS|POR|ENTRE|MOD) right=sumandos #OPE
 
 
 
-sumandos: (INT|STRING);
+sumandos: (INT|strc=STRINGCOM|STRING);
 
 
 //********GESTION DE ERRORES********
@@ -46,7 +46,7 @@ errortipo: ((LET STRING IGUAL COMILLAS INT COMILLAS)|(PRINT STRING (MENOS|MAS|EN
 
 //Funciones
 funciones: nFun=STRING PARENTESISA COMILLAS valorFun=INT+ COMILLAS PARENTESISC #FuncionInt
-        |nFun=STRING PARENTESISA valorFun=(STRINGCOM|STRING) PARENTESISC #FuncionStrings
+        |nFun=STRING PARENTESISA (vsc=STRINGCOM|vs=STRING) PARENTESISC #FuncionStrings
         |nFun=STRING PARENTESISA valorFun=funciones PARENTESISC #Funcionfuncion;
 
 rem: (REM (STRING )+ ) #Rm;
