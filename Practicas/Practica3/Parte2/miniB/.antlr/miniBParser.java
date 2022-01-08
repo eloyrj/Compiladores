@@ -975,6 +975,8 @@ public class miniBParser extends Parser {
 		}
 	}
 	public static class IntroducirContext extends InputContext {
+		public Token paraImprimir;
+		public Token variable;
 		public TerminalNode INPUT() { return getToken(miniBParser.INPUT, 0); }
 		public TerminalNode STRINGCOM() { return getToken(miniBParser.STRINGCOM, 0); }
 		public TerminalNode STRING() { return getToken(miniBParser.STRING, 0); }
@@ -992,9 +994,9 @@ public class miniBParser extends Parser {
 			setState(139);
 			match(INPUT);
 			setState(140);
-			match(STRINGCOM);
+			((IntroducirContext)_localctx).paraImprimir = match(STRINGCOM);
 			setState(141);
-			match(STRING);
+			((IntroducirContext)_localctx).variable = match(STRING);
 			}
 			}
 		}

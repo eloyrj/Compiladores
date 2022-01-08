@@ -151,7 +151,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
                 valor = visitChildren(ctx);
             }
 
-            Simbolo s = new Simbolo(tipo, valor, store);
+            Simbolo s = new Simbolo(tipo, store);
             store++;
             tablaSimbolos.insertar(ctx.nombre.getText(), s);
             return "ldc " + valor + "\n" + tipostore + s.almacenado + "\n";
@@ -206,8 +206,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
     public String visitFor(miniBParser.ForContext ctx) {
         if (tablaSimbolos.buscar(ctx.variableFor.getText()) == null) {
             Simbolo.EnumTipo tipo = Simbolo.EnumTipo.Integer;
-            Object valor = ctx.valorFor.getText();
-            Simbolo s = new Simbolo(tipo, valor, store);
+            Simbolo s = new Simbolo(tipo,store);
             store++;
             tablaSimbolos.insertar(ctx.variableFor.getText(), s);
             int etiqueta1 = vecesIf;
@@ -219,8 +218,9 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             int st1 = s.almacenado;
             int st2 = store;
             store++;
+            
 
-            return "ldc " + tablaSimbolos.buscar(ctx.variableFor.getText()).valor.toString() + "\nistore " + st1
+            return "iload " + tablaSimbolos.buscar(ctx.variableFor.getText()).almacenado + "\nistore " + st1
                     + "\nldc " + ctx.igualacion.getText() + "\nistore " + st2 + "\niload 1\niload 2\nif_icmpge etiqueta"
                     + etiqueta1 + "\netiqueta" + etiqueta2 + ":\n" + visitChildren(ctx)
                     + "\niload 1\nldc 1\niadd\nistore 1\niload 1\niload 2" + "\nif_icmplt etiqueta" + etiqueta2
@@ -292,13 +292,16 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             valor = ctx.numero.getText();
         } else if (ctx.str != null) {
             Simbolo s = tablaSimbolos.buscar(ctx.nombre.getText());
-            tipostore = "astore ";
-            valor = s.valor;
+            if(s.tipo == Simbolo.EnumTipo.Integer){
+                tipostore = "iload "+s.almacenado+"\nistore ";
+            }else if (s.tipo == Simbolo.EnumTipo.String){
+                tipostore = "aload "+s.almacenado+"\nastore ";
+            }
         } else if (ctx.op != null) {
             tipostore = "istore ";
             valor = visitChildren(ctx);
         }
-        tablaSimbolos.actualizarV(ctx.nombre.getText(), valor);
+
         Simbolo s = tablaSimbolos.buscar(ctx.nombre.getText());
         store++;
         return visitChildren(ctx) + "\n" + tipostore + s.almacenado;
@@ -309,7 +312,6 @@ public class MiVisitante extends miniBBaseVisitor<String> {
 
 
         String primeraV = "";
-        int eti1=0;
         if (esNumero(ctx.var.getText())) {
             primeraV = "ldc " + ctx.var.getText();
         } else {
@@ -319,7 +321,6 @@ public class MiVisitante extends miniBBaseVisitor<String> {
         
 
         String segundaV = "";
-        int eti2=0;
         if (esNumero(ctx.Var2.getText())) {
             segundaV = "ldc " + ctx.Var2.getText();
         } else {
@@ -331,7 +332,31 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             + "\n" + primeraV+"\n"+segundaV+"\n" +"if_icmplt etiqueta" + etiqueta ;
     }
 
-    
+    @Override
+    public String visitIntroducir(miniBParser.IntroducirContext ctx){
+        String peticion = "getstatic java/lang/System/out Ljava/io/PrintStream;"
+        +"\nldc "+'"'+"has pulsado"+'"'
+        +"\ninvokevirtual java/io/PrintStream/println(Ljava/lang/String;)V";
+        int llamadaScanner = store;
+        store++;
+        String imputString = "new java/util/Scanner"
+        +"\ndup"
+        +"\ngetstatic java/lang/System/in Ljava/io/InputStream;"
+        +"\ninvokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V"
+        +"astore " + llamadaScanner
+        +"aload " + llamadaScanner
+        +"invokevirtual java/util/Scanner/nextInt()I"
+        +"istore " + store;
+        int etiqueta = store;
+        store++;
+
+        Simbolo s = new Simbolo(Simbolo.EnumTipo.Integer, etiqueta);
+        tablaSimbolos.insertar(ctx.variable.getText(), s);
+
+        return peticion+"\n"+imputString;   
+
+    }
+
     protected String aggregateResult(String aggregate, String nextResult) {
         if (aggregate == null) {
             return nextResult;

@@ -19,7 +19,7 @@ buclefor: (FOR variableFor=STRING IGUAL valorFor=INT TO igualacion=INT INTRO ((c
 condicionalif: IF ((op1if=(STRING|INT) comparador=(MAYORQUE|MENORQUE|IGUAL) op2if=(STRING|INT))|STRING|INT) THEN INTRO
         ((conti=CONTINUE|exit=EXIT|inst1=instruccion) INTRO)+ (ELSE INTRO (inst2=instruccion INTRO)+)* END  #If;
 
-input: (INPUT STRINGCOM STRING) #Introducir;
+input: (INPUT paraImprimir=STRINGCOM variable=STRING) #Introducir;
 
 repeat: (REPEAT INTRO (instruccion INTRO)+ UNTIL var=STRING IGUAL Var2=INT) #Repetir;
 
