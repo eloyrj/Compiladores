@@ -8,10 +8,14 @@ public class MiVisitante extends miniBBaseVisitor<String> {
     @Override
     public String visitOPERACIONES(miniBParser.OPERACIONESContext ctx) {
         String primeraV = "";
-        if (esNumero(ctx.right.getText()) && ctx.right == null) {
+        if (esNumero(ctx.right.getText())) {
             primeraV = "ldc " + ctx.right.getText();
         } else {
-            primeraV = "iload " + tablaSimbolos.buscar(ctx.right.getText()).almacenado;
+            if (tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Integer) {
+                primeraV = "iload " + tablaSimbolos.buscar(ctx.right.getText()).almacenado;
+            } else {
+                primeraV = "aload " + tablaSimbolos.buscar(ctx.right.getText()).almacenado;
+            }
         }
 
         String oper = null;
@@ -37,13 +41,19 @@ public class MiVisitante extends miniBBaseVisitor<String> {
                     + "\niload " + etiqueta1 + "\niload " + etiqueta3 + "\nisub";
         }
         visitChildren(ctx);
-        if (ctx.right.strc != null || esStrc) {
-            esStrc = false;
+        if (esStrc) {
+
+            String tipow = "";
+            if (ctx.right.strc != null || tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.String) {
+                tipow = "Ljava/lang/String;";
+            } else {
+                tipow = "I";
+            }
 
             return visitChildren(ctx)
                     + primeraV
-                    + "\ninvokevirtual StringBuilder/append(LString;)LStringBuilder;"
-                    + "\ninvokevirtual StringBuilder/toString()LString;";
+                    + "\ninvokevirtual java/lang/StringBuffer/append(" + tipow + ")Ljava/lang/StringBuffer;"
+                    + "\ninvokevirtual java/lang/StringBuffer/toString()Ljava/lang/String;";
         }
         return visitChildren(ctx) + "\n" + primeraV + "\n" + oper;
     }
@@ -51,22 +61,22 @@ public class MiVisitante extends miniBBaseVisitor<String> {
     @Override
     public String visitNumberES(miniBParser.NumberESContext ctx) {
         String primeraV = "";
-        if (esNumero(ctx.number.getText())  ) {
+        if (esNumero(ctx.number.getText())) {
             primeraV = "ldc " + ctx.number.getText();
         } else if (ctx.number.strc == null) {
             primeraV = "iload " + tablaSimbolos.buscar(ctx.number.getText()).almacenado;
         }
-        
+
         if (ctx.number.strc != null) {
             esStrc = true;
-            return "new class StringBuilder"
+            return "new java/lang/StringBuffer"
                     + "\ndup"
-                    + "\ninvokespecial StringBuilder/<init>" 
-                    + "\nldc "+ ctx.number.getText() 
-                    + "\ninvokevirtual StringBuilder/append(LString;)LStringBuilder;\n";
+                    + "\ninvokespecial java/lang/StringBuffer/<init>()V"
+                    + "\nldc " + ctx.number.getText()
+                    + "\ninvokevirtual java/lang/StringBuffer/append(Ljava/lang/String;)Ljava/lang/StringBuffer;\n";
         }
         return primeraV;
-        
+
     }
 
     @Override
@@ -77,7 +87,14 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             imprimeTipo = "ldc " + ctx.impComillas.getText() + " \n"
                     + "   invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V \n";
         } else if (ctx.po != null) {
-            imprimeTipo = visitChildren(ctx) + " \n" + "   invokevirtual java/io/PrintStream/println(I)V\n";
+            visitChildren(ctx);
+            if (esStrc) {
+                imprimeTipo = visitChildren(ctx) + " \n"
+                        + "   invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V\n";
+                esStrc = false;
+            } else {
+                imprimeTipo = visitChildren(ctx) + " \n" + "   invokevirtual java/io/PrintStream/println(I)V\n";
+            }
         } else if (ctx.pf != null) {
             imprimeTipo = "ldc " + visitChildren(ctx) + " \n" + "   invokevirtual java/io/PrintStream/println(I)V\n";
             for (int i = 0; i < visitChildren(ctx).length(); i++) {
@@ -383,8 +400,8 @@ public class MiVisitante extends miniBBaseVisitor<String> {
     @Override
     public String visitIntroducir(miniBParser.IntroducirContext ctx) {
         String peticion = "getstatic java/lang/System/out Ljava/io/PrintStream;"
-                + "\nldc " + '"' + "introduce un valor" + '"'
-                + "\ninvokevirtual java/io/PrintStream/println(Ljava/lang/String;)V";
+                + "\nldc " + ctx.paraImprimir.getText()
+                + "\ninvokevirtual java/io/PrintStream/print(Ljava/lang/String;)V";
         int llamadaScanner = store;
         store++;
         String imputString = "new java/util/Scanner"
@@ -393,12 +410,12 @@ public class MiVisitante extends miniBBaseVisitor<String> {
                 + "\ninvokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V"
                 + "\nastore " + llamadaScanner
                 + "\naload " + llamadaScanner
-                + "\ninvokevirtual java/util/Scanner/nextInt()I"
-                + "\nistore " + store;
+                + "\ninvokevirtual java/util/Scanner/nextLine()Ljava/lang/String;"
+                + "\nastore " + store;
         int etiqueta = store;
         store++;
 
-        Simbolo s = new Simbolo(Simbolo.EnumTipo.Integer, etiqueta);
+        Simbolo s = new Simbolo(Simbolo.EnumTipo.String, etiqueta);
         tablaSimbolos.insertar(ctx.variable.getText(), s);
 
         return peticion + "\n" + imputString;
