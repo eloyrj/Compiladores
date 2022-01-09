@@ -1,9 +1,9 @@
-def suma(int x)  :
-
+def int suma(int x)  :
+    x = x+1
     print x
-
+    return x
 end
 
-suma(3)
+suma(suma(4))
 
 

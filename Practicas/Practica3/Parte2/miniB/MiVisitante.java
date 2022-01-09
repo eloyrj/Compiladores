@@ -161,8 +161,8 @@ public class MiVisitante extends miniBBaseVisitor<String> {
                             returFun = "Ljava/lang/String;";
                         }
 
-                        imprimeTipo =  visitChildren(ctx)  + " \n"
-                                + "   invokevirtual java/io/PrintStream/println("+returFun+")V \n";
+                        imprimeTipo = visitChildren(ctx) + " \n"
+                                + "   invokevirtual java/io/PrintStream/println(" + returFun + ")V \n";
                         break;
 
                     } else {
@@ -178,7 +178,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             if (s.tipo == Simbolo.EnumTipo.Integer) {
                 imprimeTipo = "iload " + s.almacenado + " \n" + "   invokevirtual java/io/PrintStream/println(I)V\n";
             } else if (s.tipo == Simbolo.EnumTipo.String) {
-                imprimeTipo = "aload " + '"' + s.almacenado + '"' + " \n"
+                imprimeTipo = "aload " +  s.almacenado + " \n"
                         + "   invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V \n";
             }
         }
@@ -334,6 +334,41 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             } else {
                 return "ldc " + '"' + "False" + '"';
             }
+        } else if (tablaSimbolos.buscar(ctx.nFun.getText()) != null
+                && tablaSimbolos.buscar(ctx.nFun.getText()).tipo == Simbolo.EnumTipo.Funcion) {
+            Simbolo s = tablaSimbolos.buscar(ctx.nFun.getText());
+            String llamaFun = "V";
+            if (s.getTipoLLamadaFun() == Simbolo.EnumTipo.Integer) {
+                llamaFun = "I";
+            } else if (s.getTipoLLamadaFun() == Simbolo.EnumTipo.String) {
+                llamaFun = "Ljava/lang/String;";
+            }
+
+            String returFun = "V";
+            if (s.getTipoReturnFun() == Simbolo.EnumTipo.Integer) {
+                returFun = "I";
+            } else if (s.getTipoReturnFun() == Simbolo.EnumTipo.String) {
+                returFun = "Ljava/lang/String;";
+            }
+            String st = "";
+            if(ctx.vs!=null){
+                st = ctx.vs.getText();
+            }else{
+                st = ctx.vsc.getText();
+            }
+
+            String primeraV = "V";
+            if (esNumero(st) || tablaSimbolos.buscar(st) == null) {
+                primeraV = "ldc " + st;
+            } else {
+                if (tablaSimbolos.buscar(st).tipo == Simbolo.EnumTipo.Integer) {
+                    primeraV = "iload " + tablaSimbolos.buscar(st).almacenado;
+                } else {
+                    primeraV = "aload " + tablaSimbolos.buscar(st).almacenado;
+                }
+            }
+            return primeraV
+                    + "\ninvokestatic Sumar/" + ctx.nFun.getText() + "(" + llamaFun + ")" + returFun;
         }
         return "Error: La funcion no existe";
     }
@@ -353,7 +388,36 @@ public class MiVisitante extends miniBBaseVisitor<String> {
                 }
             }
             return "ldc " + '"' + "False" + '"';
+        }else if (tablaSimbolos.buscar(ctx.nFun.getText()) != null
+        && tablaSimbolos.buscar(ctx.nFun.getText()).tipo == Simbolo.EnumTipo.Funcion) {
+    Simbolo s = tablaSimbolos.buscar(ctx.nFun.getText());
+    String llamaFun = "V";
+    if (s.getTipoLLamadaFun() == Simbolo.EnumTipo.Integer) {
+        llamaFun = "I";
+    } else if (s.getTipoLLamadaFun() == Simbolo.EnumTipo.String) {
+        llamaFun = "Ljava/lang/String;";
+    }
+
+    String returFun = "V";
+    if (s.getTipoReturnFun() == Simbolo.EnumTipo.Integer) {
+        returFun = "I";
+    } else if (s.getTipoReturnFun() == Simbolo.EnumTipo.String) {
+        returFun = "Ljava/lang/String;";
+    }
+
+    String primeraV = "V";
+    if (esNumero(ctx.valorFun.getText()) || tablaSimbolos.buscar(ctx.valorFun.getText()) == null) {
+        primeraV = "ldc " + ctx.valorFun.getText();
+    } else {
+        if (tablaSimbolos.buscar(ctx.valorFun.getText()).tipo == Simbolo.EnumTipo.Integer) {
+            primeraV = "iload " + tablaSimbolos.buscar(ctx.valorFun.getText()).almacenado;
+        } else {
+            primeraV = "aload " + tablaSimbolos.buscar(ctx.valorFun.getText()).almacenado;
         }
+    }
+    return visitChildren(ctx)
+            + "\ninvokestatic Sumar/" + ctx.nFun.getText() + "(" + llamaFun + ")" + returFun;
+}
         return "Error: La funcion no existe";
     }
 
@@ -577,9 +641,8 @@ public class MiVisitante extends miniBBaseVisitor<String> {
 
     }
 
-
     @Override
-    public String visitDEFsubrutina(miniBParser.DEFsubrutinaContext ctx){
+    public String visitDEFsubrutina(miniBParser.DEFsubrutinaContext ctx) {
         if (tablaSimbolos.buscar(ctx.nomDef.getText()) == null) {
             String tipofun = "";
             String iniVar = "";
@@ -599,15 +662,13 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             Simbolo s = new Simbolo(tipo, 0);
             tablaSimbolos.insertar(ctx.Variable.getText(), s);
 
-            
-
             String valorFuncion = ".method public static " + ctx.nomDef.getText() + "(" + tipofun + ")V"
                     + "\n.limit stack 100"
                     + "\n.limit locals 100"
                     + "\n" + iniVar
                     + "\n" + visitChildren(ctx)
-                    
-                    + "\nreturn" 
+
+                    + "\nreturn"
                     + "\n.end method";
 
             s = new Simbolo(Simbolo.EnumTipo.Funcion, valorFuncion);
