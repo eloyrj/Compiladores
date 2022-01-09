@@ -1,10 +1,10 @@
 grammar miniB;
 
-fichero: (prog |INTRO)*;
+fichero: (prog)*;
 
 
 
-prog: (let|repeat|buclefor|condicionalif|print|input|buclewhile|errorsintactico|errortipo|funciones|rem|asignacion|operacion);
+prog: (let|repeat|buclefor|condicionalif|print|input|buclewhile|errorsintactico|errortipo|funciones|rem|asignacion|operacion|defFuncion|subrutina);
 
 instruccion: ( print |let |asignacion ) #Inst;
 
@@ -41,20 +41,48 @@ errorsintactico: (LET IGUAL INT
                  | WHILE (STRING|INT|STRING) INTRO ((instruccion|let) INTRO)+ END) #ESintactico;
 
 //Error tipo
-errortipo: ((LET STRING IGUAL COMILLAS INT COMILLAS)|(PRINT STRING (MENOS|MAS|ENTRE|POR) INT)
-           | (STRING PARENTESISA INT+ PARENTESISC) ) #ETipo;
+errortipo: ((LET STRING IGUAL COMILLAS INT COMILLAS)|(PRINT STRING (MENOS|MAS|ENTRE|POR) INT) )#ETipo;
 
 //Funciones
-funciones: nFun=STRING PARENTESISA COMILLAS valorFun=INT+ COMILLAS PARENTESISC #FuncionInt
+funciones: nFun=STRING PARENTESISA COMILLAS* valorFun=INT+ COMILLAS* PARENTESISC #FuncionInt
         |nFun=STRING PARENTESISA (vsc=STRINGCOM|vs=STRING) PARENTESISC #FuncionStrings
         |nFun=STRING PARENTESISA valorFun=funciones PARENTESISC #Funcionfuncion;
 
 rem: (REM (STRING )+ ) #Rm;
 
+//Definicion funciones y subrutinas
+posiblesReturn: (STRINGCOM|STRING|INT);
+
+defFuncion: DEF tipoReturn=STRING nomDef= STRING PARENTESISA (tipo=STRING Variable=STRING COMA*)* PARENTESISC  PUNTOS 
+            (dop= operacion|dif= condicionalif|dfor= buclefor|dw= buclewhile|df= funciones|dasi= asignacion|instruccion)+ 
+            RETURN vret = posiblesReturn  END #DEFFuncion;
+
+subrutina: (DEF nomDef= STRING PARENTESISA (tipo=STRING Variable=STRING COMA*)* PARENTESISC PUNTOS
+           (so= operacion|sif= condicionalif|sfor= buclefor|sw= buclewhile
+           |sf= funciones|sasi= asignacion|sp= print)+ ) END #DEFsubrutina;
+
+//Operaciones con cadenas
+sumarcadenas: left = sumarcadenas MAS sumnombre = STRINGCOM #SumaCadena
+              | sumnombre = STRINGCOM #NombreCadena ;
+copiarcadenas: copianombre = STRINGCOM POR copiavalor = INT #CopiaCadena;
+accesoposicioncadena: accesonombre= STRINGCOM CORCHETEA accesovalor = INT CORCHETEC #AccesoCadena;
+//recorrercadena: FOR STRINGCOM IN STRINGCOM PRINT STRINGCOM;
+segmentocadena: segmentonombre= STRINGCOM CORCHETEA segmentovalorI = INT PUNTOS segmentovalorF=INT CORCHETEC #SegCadena;
+
+//Más tipos basicos
+flotante: INT PUNTO INT;
+booleano: BOOLEANF | BOOLEANT;
+array: CORCHETEA (STRINGCOM COMA)* STRINGCOM CORCHETEC ;
+enteros: MENOS? INT;
 
 
-E : (' ' | '\t') { skip(); };
 
+//**********LEXER**********
+
+
+E : (' ' | '\t'  ) { skip(); };
+
+PUNTOS: ':';
 IGUAL: '=';
 MAYORQUE: '>';
 MENORQUE: '<';
@@ -63,11 +91,15 @@ MENOS: '-';
 POR: '*';
 ENTRE: '/';
 MOD: 'MOD'|'mod';
+PUNTO: '.' ;
+COMA: ',';
 
 END: 'END'|'end';
 NEXT: 'NEXT'|'next';
-PARENTESISA: '(';
-PARENTESISC: ')';
+CORCHETEA: '[';
+CORCHETEC: ']';
+PARENTESISA: '(' ;
+PARENTESISC: ')' ;
 COMILLAS: '"';
 
 //Print
@@ -103,10 +135,16 @@ WHILE: 'WHILE'|'while';
 //GDC euclid
 REM: 'REM';
 
+DEF: 'DEF' | 'def';
+RETURN: 'RETURN' | 'return';
+IN: 'IN' | 'in';
 STRING:[a-zA-Z]+;
 STRINGCOM: '"'[a-zA-Z' ':¡!=]+'"';
 
+INTRO: [\r\n]+ { skip(); };
+INT: '-'*[0-9]+;
 
-INTRO: [\r\n]+;
-INT: [0-9]+;
-
+//Boolean
+BOOLEANT: 'true' | 'TRUE' ;
+BOOLEANF: 'false' | 'FALSE' ;
+TIPOS:'int'|'string'|'boolean'|'float';

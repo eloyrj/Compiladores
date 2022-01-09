@@ -146,4 +146,83 @@ public interface miniBVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitRm(miniBParser.RmContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link miniBParser#posiblesReturn}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPosiblesReturn(miniBParser.PosiblesReturnContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DEFFuncion}
+	 * labeled alternative in {@link miniBParser#defFuncion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDEFFuncion(miniBParser.DEFFuncionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DEFsubrutina}
+	 * labeled alternative in {@link miniBParser#subrutina}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDEFsubrutina(miniBParser.DEFsubrutinaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SumaCadena}
+	 * labeled alternative in {@link miniBParser#sumarcadenas}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSumaCadena(miniBParser.SumaCadenaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NombreCadena}
+	 * labeled alternative in {@link miniBParser#sumarcadenas}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNombreCadena(miniBParser.NombreCadenaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CopiaCadena}
+	 * labeled alternative in {@link miniBParser#copiarcadenas}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCopiaCadena(miniBParser.CopiaCadenaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AccesoCadena}
+	 * labeled alternative in {@link miniBParser#accesoposicioncadena}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAccesoCadena(miniBParser.AccesoCadenaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SegCadena}
+	 * labeled alternative in {@link miniBParser#segmentocadena}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSegCadena(miniBParser.SegCadenaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link miniBParser#flotante}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFlotante(miniBParser.FlotanteContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link miniBParser#booleano}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleano(miniBParser.BooleanoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link miniBParser#array}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArray(miniBParser.ArrayContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link miniBParser#enteros}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEnteros(miniBParser.EnterosContext ctx);
 }

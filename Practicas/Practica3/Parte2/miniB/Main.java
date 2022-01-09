@@ -29,7 +29,7 @@ public class Main {
         
         ParseTree tree = parser.fichero();
         //System.out.print(new MiVisitante().visit(tree));
-        return createJasminFile(new MiVisitante().visit(tree));
+        return new MiVisitante().visit(tree);
     }
 
     private static String createJasminFile(String instructions) {

@@ -1,2 +1,9 @@
-LET i = 2
-PRINT i
+def suma(int x)  :
+
+    print x
+
+end
+
+suma(3)
+
+
