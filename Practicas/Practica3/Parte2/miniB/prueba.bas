@@ -1,9 +1,6 @@
-def int suma(int x)  :
-    x = x+1
-    print x
-    return x
+let x = 1 
+WHILE x<3
+    print x 
 end
-
-suma(suma(4))
 
 

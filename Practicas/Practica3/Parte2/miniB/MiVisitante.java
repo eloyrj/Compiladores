@@ -8,8 +8,8 @@ public class MiVisitante extends miniBBaseVisitor<String> {
 
     @Override
     public String visitFichero(miniBParser.FicheroContext ctx) {
-        visitChildren(ctx);
-        if (!funcion.equals("")) {
+        
+        if (ctx.p.f !=null) {
             return ".class public Sumar\n"
                     + ".super java/lang/Object\n"
                     + "\n"
@@ -43,6 +43,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
         String primeraV = "";
         if (esNumero(ctx.right.getText()) || esFloat(ctx.right.getText())) {
             primeraV = "ldc " + ctx.right.getText();
+
         } else {
             if (tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Integer) {
                 primeraV = "iload " + tablaSimbolos.buscar(ctx.right.getText()).almacenado;
@@ -56,12 +57,11 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             } else {
                 primeraV = "aload " + tablaSimbolos.buscar(ctx.right.getText()).almacenado;
             }
-
         }
 
-        String oper = null;
-        if (tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Integer
-                || esNumero(ctx.right.getText())) {
+        String oper = "";
+        if (esNumero(ctx.right.getText()) || (tablaSimbolos.buscar(ctx.right.getText()) != null
+                && tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Integer)) {
 
             if (ctx.operador.getText().equals("+")) {
                 oper = "iadd";
@@ -73,82 +73,84 @@ public class MiVisitante extends miniBBaseVisitor<String> {
                 oper = "idiv";
             } else if (ctx.operador.getText().equals("mod") || ctx.operador.getText().equals("MOD")) {
                 oper = "irem";
-
-            } else if (tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Float
-                    || esFloat(ctx.right.getText())) {
-                if (ctx.operador.getText().equals("+")) {
-                    oper = "fadd";
-                } else if (ctx.operador.getText().equals("-")) {
-                    oper = "fsub";
-                } else if (ctx.operador.getText().equals("*")) {
-                    oper = "fmul";
-                } else if (ctx.operador.getText().equals("/")) {
-                    oper = "fdiv";
-                } else if (ctx.operador.getText().equals("mod") || ctx.operador.getText().equals("MOD")) {
-                    oper = "frem";
-                }
             }
-            visitChildren(ctx);
-            if (esStrc) {
-
-                String tipow = "";
-                if (ctx.right.strc != null || tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.String
-                        || tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Array) {
-                    tipow = "Ljava/lang/String;";
-                } else if (ctx.right.strc != null
-                        || tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Integer) {
-                    tipow = "I";
-                } else if (ctx.right.strc != null
-                        || tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Float) {
-                    tipow = "F";
-                }
-
-                return visitChildren(ctx)
-                        + primeraV
-                        + "\ninvokevirtual java/lang/StringBuffer/append(" + tipow + ")Ljava/lang/StringBuffer;"
-                        + "\ninvokevirtual java/lang/StringBuffer/toString()Ljava/lang/String;";
-
+        } else if (esFloat(ctx.right.getText()) || (tablaSimbolos.buscar(ctx.right.getText()) != null
+                && tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Float)) {
+            if (ctx.operador.getText().equals("+")) {
+                oper = "fadd";
+            } else if (ctx.operador.getText().equals("-")) {
+                oper = "fsub";
+            } else if (ctx.operador.getText().equals("*")) {
+                oper = "fmul";
+            } else if (ctx.operador.getText().equals("/")) {
+                oper = "fdiv";
+            } else if (ctx.operador.getText().equals("mod") || ctx.operador.getText().equals("MOD")) {
+                oper = "frem";
             }
-            return visitChildren(ctx) + "\n" + primeraV + "\n" + oper;
         }
+        visitChildren(ctx);
+        if (esStrc) {
+
+            String tipow = "";
+            if (ctx.right.strc != null
+                    || tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.String
+                    || tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Array) {
+                tipow = "Ljava/lang/String;";
+            } else if (ctx.right.strc != null
+                    || tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Integer) {
+                tipow = "I";
+            } else if (ctx.right.strc != null
+                    || tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Float) {
+                tipow = "F";
+            }
+
+            return visitChildren(ctx)
+                    + primeraV
+                    + "\ninvokevirtual java/lang/StringBuffer/append(" + tipow + ")Ljava/lang/StringBuffer;"
+                    + "\ninvokevirtual java/lang/StringBuffer/toString()Ljava/lang/String;";
+
+        }
+        return visitChildren(ctx) + "\n" + primeraV + "\n" + oper;
     }
+
+
 
     @Override
     public String visitNumberES(miniBParser.NumberESContext ctx) {
 
         String primeraV = "";
-        if (esNumero(ctx.number.getText()) || esFloat(ctx.number.getText()) ) {
-            if (tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Integer
-               || tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Float) {
-                primeraV = "ldc " + ctx.number.getText();
-            }
+        if (esNumero(ctx.number.getText()) || esFloat(ctx.number.getText())) {
 
-        } else if (ctx.number.strc == null ) {
-            if (tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Integer){
+            primeraV = "ldc " + ctx.number.getText();
+
+        } else if (ctx.number.strc == null) {
+            if (tablaSimbolos.buscar(ctx.number.getText()).tipo == Simbolo.EnumTipo.Integer) {
                 primeraV = "iload " + tablaSimbolos.buscar(ctx.number.getText()).almacenado;
-            } else if (tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.Float){
+            } else if (tablaSimbolos.buscar(ctx.number.getText()).tipo == Simbolo.EnumTipo.Float) {
                 primeraV = "fload " + tablaSimbolos.buscar(ctx.number.getText()).almacenado;
-            } else if (tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.String){
+            } else if (tablaSimbolos.buscar(ctx.number.getText()).tipo == Simbolo.EnumTipo.String) {
                 primeraV = "aload " + tablaSimbolos.buscar(ctx.number.getText()).almacenado;
 
             }
-        if (ctx.number.strc != null {
-            esStrc = true;
-            return "new java/lang/StringBuffer"
-                    + "\ndup"
-                    + "\ninvokespecial java/lang/StringBuffer/<init>()V"
-                    + "\nldc " + ctx.number.getText()
-                    + "\ninvokevirtual java/lang/StringBuffer/append(Ljava/lang/String;)Ljava/lang/StringBuffer;\n";
-        } else if (tablaSimbolos.buscar(ctx.right.getText()).tipo == Simbolo.EnumTipo.String){
-            esStrc = true;
-            return "new java/lang/StringBuffer"
-                    + "\ndup"
-                    + "\ninvokespecial java/lang/StringBuffer/<init>()V"
-                    + "\n" + primeraV
-                    + "\ninvokevirtual java/lang/StringBuffer/append(Ljava/lang/String;)Ljava/lang/StringBuffer;\n";
+            if (ctx.number.strc != null) {
+                esStrc = true;
+                return "new java/lang/StringBuffer"
+                        + "\ndup"
+                        + "\ninvokespecial java/lang/StringBuffer/<init>()V"
+                        + "\nldc " + ctx.number.getText()
+                        + "\ninvokevirtual java/lang/StringBuffer/append(Ljava/lang/String;)Ljava/lang/StringBuffer;\n";
+            } else if (tablaSimbolos.buscar(ctx.number.getText()).tipo == Simbolo.EnumTipo.String) {
+                esStrc = true;
+                return "new java/lang/StringBuffer"
+                        + "\ndup"
+                        + "\ninvokespecial java/lang/StringBuffer/<init>()V"
+                        + "\n" + primeraV
+                        + "\ninvokevirtual java/lang/StringBuffer/append(Ljava/lang/String;)Ljava/lang/StringBuffer;\n";
+            }
+
         }
         return primeraV;
-    }}
+    }
 
     @Override
     public String visitImprimir(miniBParser.ImprimirContext ctx) {
@@ -184,12 +186,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
 
                         Simbolo s = tablaSimbolos.buscar(nombre);
 
-                        String llamaFun = "V";
-                        if (s.getTipoLLamadaFun() == Simbolo.EnumTipo.Integer) {
-                            llamaFun = "I";
-                        } else if (s.getTipoLLamadaFun() == Simbolo.EnumTipo.String) {
-                            llamaFun = "Ljava/lang/String;";
-                        }
+                        
 
                         String returFun = "";
                         if (s.getTipoReturnFun() == Simbolo.EnumTipo.Integer) {
@@ -217,7 +214,16 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             } else if (s.tipo == Simbolo.EnumTipo.String) {
                 imprimeTipo = "aload " + s.almacenado + " \n"
                         + "   invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V \n";
+            } else if (s.tipo == Simbolo.EnumTipo.Float) {
+                imprimeTipo = "fload " + s.almacenado + " \n"
+                        + "   invokevirtual java/io/PrintStream/println(F)V \n";
             }
+        } else if (ctx.valirInt != null) {
+            imprimeTipo = "ldc " + ctx.valirInt.getText() + " \n"
+                    + "   invokevirtual java/io/PrintStream/println(I)V \n";
+        } else if (ctx.valorft != null) {
+            imprimeTipo = "ldc " + ctx.valorft.getText() + " \n"
+                    + "   invokevirtual java/io/PrintStream/println(F)V \n";
         }
 
         return "   getstatic java/lang/System/out Ljava/io/PrintStream;\n" + imprimeTipo + "\n";
@@ -280,9 +286,9 @@ public class MiVisitante extends miniBBaseVisitor<String> {
                 segundaV = "iload " + tablaSimbolos.buscar(ctx.op2if.getText()).almacenado;
             }
 
-            return segundaV + "\n" + segundaV + "\n" + comparador + "\n" + instElse + "goto etiqueta" + etiqueta2
-                    + "\netiqueta" + etiqueta1 + ":\n" + comandosTrue;
         }
+        return segundaV + "\n" + segundaV + "\n" + comparador + "\n" + instElse + "goto etiqueta" + etiqueta2
+                + "\netiqueta" + etiqueta1 + ":\n" + comandosTrue;
     }
 
     public boolean esNumero(String s) {
@@ -296,9 +302,10 @@ public class MiVisitante extends miniBBaseVisitor<String> {
     }
 
     public boolean esFloat(String s) {
+
         for (int i = 0; i < s.length(); i++) {
             char a = s.charAt(i);
-            if (!Character.isDigit(a) || a != '.') {
+            if (!Character.isDigit(a) && a != '.') {
                 return false;
             }
         }
@@ -307,7 +314,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
 
     @Override
     public String visitLETT(miniBParser.LETTContext ctx) {
-        if (tablaSimbolos.buscar(ctx.nombre.getText()) == null) {
+        //if (tablaSimbolos.buscar(ctx.nombre.getText()) == null) {
             Simbolo.EnumTipo tipo = null;
             String tipostore = "";
             Object valor = null;
@@ -326,19 +333,20 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             } else if (ctx.valorft != null) {
                 tipo = Simbolo.EnumTipo.Float;
                 tipostore = "fstore ";
-                valor = ctx.valors.getText();
+                valor = ctx.valorft.getText();
             } else if (ctx.valorarr != null) {
                 tipo = Simbolo.EnumTipo.Array;
                 tipostore = "aistore ";
-                valor = ctx.valors.getText();
+                valor = ctx.valorarr.getText();
             }
 
             Simbolo s = new Simbolo(tipo, store);
             store++;
             tablaSimbolos.insertar(ctx.nombre.getText(), s);
             return "ldc " + valor + "\n" + tipostore + s.almacenado + "\n";
-        }
-        return "Error: la variable " + ctx.nombre.getText() + " no existe";
+       // }else{
+         //return "Error: la variable " + ctx.nombre.getText() + " ya existe";
+        //}
     }
 
     @Override
@@ -371,7 +379,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             } else if (tablaSimbolos.buscar(ctx.valorFun.getText()).tipo == Simbolo.EnumTipo.Float) {
                 primeraV = "fload " + tablaSimbolos.buscar(ctx.valorFun.getText()).almacenado;
 
-            } else if (tablaSimbolos.buscar(ctx.op1if.getText()).tipo == Simbolo.EnumTipo.Array) {
+            } else if (tablaSimbolos.buscar(ctx.valorFun.getText()).tipo == Simbolo.EnumTipo.Array) {
                 primeraV = "iaload " + tablaSimbolos.buscar(ctx.valorFun.getText()).almacenado;
             } else {
                 primeraV = "iload " + tablaSimbolos.buscar(ctx.valorFun.getText()).almacenado;
@@ -453,8 +461,6 @@ public class MiVisitante extends miniBBaseVisitor<String> {
         return "Error: La funcion no existe";
     }
 
-    }
-
     @Override
     public String visitFuncionfuncion(miniBParser.FuncionfuncionContext ctx) {
         if (ctx.nFun.getText().equals("VAL")) {
@@ -496,7 +502,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             }
 
             String primeraV = "V";
-            if (esNumero(ctx.valorFun.getText()) || esFloat(ctx.op1if.getText())
+            if (esNumero(ctx.valorFun.getText()) || esFloat(ctx.valorFun.getText())
                     || tablaSimbolos.buscar(ctx.valorFun.getText()) == null) {
                 primeraV = "ldc " + ctx.valorFun.getText();
             } else if (tablaSimbolos.buscar(ctx.valorFun.getText()).tipo == Simbolo.EnumTipo.Float) {
@@ -507,8 +513,11 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             } else {
                 primeraV = "iload " + tablaSimbolos.buscar(ctx.valorFun.getText()).almacenado;
             }
-            return "Error: La funcion no existe";
+            return primeraV
+                    + "\ninvokestatic Sumar/" + ctx.nFun.getText() + "(" + llamaFun + ")" + returFun;
+
         }
+        return "Error: La funcion no existe";
     }
 
     @Override
@@ -650,7 +659,8 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             Simbolo s = tablaSimbolos.buscar(ctx.nombre.getText());
             return visitChildren(ctx) + "\n" + "istore " + s.almacenado;
         } else if (ctx.ft != null) {
-            tipostore = "fstore";
+            Simbolo s = tablaSimbolos.buscar(ctx.nombre.getText());
+            tipostore = "ldc " + ctx.ft.getText() + "\nfstore " + s.almacenado;
         }
 
         Simbolo s = tablaSimbolos.buscar(ctx.nombre.getText());
@@ -674,15 +684,15 @@ public class MiVisitante extends miniBBaseVisitor<String> {
         }
 
         String segundaV = "";
-        if (esNumero(ctx.var2.getText()) || esFloat(ctx.var.getText())) {
-            segundaV = "ldc " + ctx.var2.getText();
-        } else if (tablaSimbolos.buscar(ctx.var2.getText()).tipo == Simbolo.EnumTipo.Float) {
-            segundaV = "fload " + tablaSimbolos.buscar(ctx.var2.getText()).almacenado;
+        if (esNumero(ctx.Var2.getText()) || esFloat(ctx.var.getText())) {
+            segundaV = "ldc " + ctx.Var2.getText();
+        } else if (tablaSimbolos.buscar(ctx.Var2.getText()).tipo == Simbolo.EnumTipo.Float) {
+            segundaV = "fload " + tablaSimbolos.buscar(ctx.Var2.getText()).almacenado;
 
-        } else if (tablaSimbolos.buscar(ctx.var2.getText()).tipo == Simbolo.EnumTipo.Array) {
-            segundaV = "iaload " + tablaSimbolos.buscar(ctx.var2.getText()).almacenado;
+        } else if (tablaSimbolos.buscar(ctx.Var2.getText()).tipo == Simbolo.EnumTipo.Array) {
+            segundaV = "iaload " + tablaSimbolos.buscar(ctx.Var2.getText()).almacenado;
         } else {
-            segundaV = "iload " + tablaSimbolos.buscar(ctx.var2.getText()).almacenado;
+            segundaV = "iload " + tablaSimbolos.buscar(ctx.Var2.getText()).almacenado;
         }
         int etiqueta = vecesIf;
 

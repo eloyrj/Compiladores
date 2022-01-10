@@ -202,12 +202,6 @@ public interface miniBVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSegCadena(miniBParser.SegCadenaContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link miniBParser#flotante}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFlotante(miniBParser.FlotanteContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link miniBParser#booleano}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -219,10 +213,4 @@ public interface miniBVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitArray(miniBParser.ArrayContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link miniBParser#enteros}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEnteros(miniBParser.EnterosContext ctx);
 }
