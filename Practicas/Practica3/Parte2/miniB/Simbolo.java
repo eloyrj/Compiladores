@@ -1,7 +1,7 @@
 
 public class Simbolo {
 
-    public enum EnumTipo{ Float, String,  Integer, Double, Boolean, Funcion }
+    public enum EnumTipo{ Float, String,  Integer, Boolean, Funcion, Array }
 
     public EnumTipo tipo;
     public Object valor;

@@ -10,9 +10,9 @@ instruccion: ( print |let |asignacion ) #Inst;
 
 print: PRINT  (impComillas = STRINGCOM|ps=STRING|pf=funciones|po=operacion)  #Imprimir;
 
-let: LET nombre=STRING IGUAL (valors=STRINGCOM|valori=INT|valorf=funciones) #LETT;
+let: LET nombre=STRING IGUAL (valors=STRINGCOM|valori=INT|valorf=funciones|valorft =flotante|valorarr= array) #LETT;
 
-asignacion: (nombre=STRING IGUAL (str=STRING|numero=INT|f=funciones|op=operacion) ) #Asignar;
+asignacion: (nombre=STRING IGUAL (str=STRING|numero=INT|ft = float| arr = array|f=funciones|op=operacion) ) #Asignar;
 
 buclefor: (FOR variableFor=STRING IGUAL valorFor=INT TO igualacion=INT INTRO ((condicionalif|instruccion ) INTRO)+ NEXT) #For;
 
@@ -31,7 +31,7 @@ operacion: left=operacion operador=(MAS|MENOS|POR|ENTRE|MOD) right=sumandos #OPE
 
 
 
-sumandos: (INT|strc=STRINGCOM|STRING);
+sumandos: (INT|strc=STRINGCOM|STRING|flt= flotante|arr = array);
 
 
 //********GESTION DE ERRORES********
@@ -66,14 +66,13 @@ sumarcadenas: left = sumarcadenas MAS sumnombre = STRINGCOM #SumaCadena
               | sumnombre = STRINGCOM #NombreCadena ;
 copiarcadenas: copianombre = STRINGCOM POR copiavalor = INT #CopiaCadena;
 accesoposicioncadena: accesonombre= STRINGCOM CORCHETEA accesovalor = INT CORCHETEC #AccesoCadena;
-//recorrercadena: FOR STRINGCOM IN STRINGCOM PRINT STRINGCOM;
 segmentocadena: segmentonombre= STRINGCOM CORCHETEA segmentovalorI = INT PUNTOS segmentovalorF=INT CORCHETEC #SegCadena;
 
 //Más tipos basicos
 flotante: INT PUNTO INT;
 booleano: BOOLEANF | BOOLEANT;
 array: CORCHETEA (STRINGCOM COMA)* STRINGCOM CORCHETEC ;
-enteros: MENOS? INT;
+
 
 
 
