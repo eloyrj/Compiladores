@@ -31,7 +31,7 @@ operacion: left=operacion operador=(MAS|MENOS|POR|ENTRE|MOD) right=sumandos #OPE
 
 
 
-sumandos: (flt= FLOTANTE|INT|strc=STRINGCOM|STRING|arr = array);
+sumandos: (strc=STRINGCOM|flt= FLOTANTE|INT|STRING|arr = array);
 
 
 //********GESTION DE ERRORES********
@@ -44,7 +44,7 @@ errorsintactico: (LET IGUAL INT
 errortipo: ((LET STRING IGUAL COMILLAS INT COMILLAS)|(PRINT STRING (MENOS|MAS|ENTRE|POR) INT) )#ETipo;
 
 //Funciones
-funciones: nFun=STRING PARENTESISA valorFun=INT+ PARENTESISC #FuncionInt
+funciones: nFun=STRING PARENTESISA COMILLAS* valorFun=INT+ COMILLAS* PARENTESISC #FuncionInt
         |nFun=STRING PARENTESISA (vsc=STRINGCOM|vs=STRING) PARENTESISC #FuncionStrings
         |nFun=STRING PARENTESISA valorFun=funciones PARENTESISC #Funcionfuncion;
 
