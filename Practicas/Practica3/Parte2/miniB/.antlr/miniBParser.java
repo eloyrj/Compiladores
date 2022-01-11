@@ -160,7 +160,7 @@ public class miniBParser extends Parser {
 	}
 
 	public static class ProgContext extends ParserRuleContext {
-		public FuncionesContext f;
+		public DefFuncionContext f;
 		public LetContext let() {
 			return getRuleContext(LetContext.class,0);
 		}
@@ -188,6 +188,9 @@ public class miniBParser extends Parser {
 		public ErrortipoContext errortipo() {
 			return getRuleContext(ErrortipoContext.class,0);
 		}
+		public FuncionesContext funciones() {
+			return getRuleContext(FuncionesContext.class,0);
+		}
 		public RemContext rem() {
 			return getRuleContext(RemContext.class,0);
 		}
@@ -197,14 +200,11 @@ public class miniBParser extends Parser {
 		public OperacionContext operacion() {
 			return getRuleContext(OperacionContext.class,0);
 		}
-		public DefFuncionContext defFuncion() {
-			return getRuleContext(DefFuncionContext.class,0);
-		}
 		public SubrutinaContext subrutina() {
 			return getRuleContext(SubrutinaContext.class,0);
 		}
-		public FuncionesContext funciones() {
-			return getRuleContext(FuncionesContext.class,0);
+		public DefFuncionContext defFuncion() {
+			return getRuleContext(DefFuncionContext.class,0);
 		}
 		public ProgContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -278,7 +278,7 @@ public class miniBParser extends Parser {
 			case 10:
 				{
 				setState(67);
-				((ProgContext)_localctx).f = funciones();
+				funciones();
 				}
 				break;
 			case 11:
@@ -302,7 +302,7 @@ public class miniBParser extends Parser {
 			case 14:
 				{
 				setState(71);
-				defFuncion();
+				((ProgContext)_localctx).f = defFuncion();
 				}
 				break;
 			case 15:

@@ -4,7 +4,7 @@ fichero: (p=prog)*;
 
 
 
-prog: (let|repeat|buclefor|condicionalif|print|input|buclewhile|errorsintactico|errortipo|f=funciones|rem|asignacion|operacion|defFuncion|subrutina);
+prog: (let|repeat|buclefor|condicionalif|print|input|buclewhile|errorsintactico|errortipo|funciones|rem|asignacion|operacion|f = defFuncion|subrutina);
 
 instruccion: ( print |let |asignacion ) #Inst;
 

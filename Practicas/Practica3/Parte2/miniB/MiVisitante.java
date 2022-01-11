@@ -4,12 +4,14 @@ public class MiVisitante extends miniBBaseVisitor<String> {
     TablaSimbolos tablaSimbolos = new TablaSimbolos(null);
     int salirBucle;
     boolean esStrc = false;
+    boolean esFt = false;
     String funcion = "";
 
     @Override
     public String visitFichero(miniBParser.FicheroContext ctx) {
-
-        if (ctx.p.f != null) {
+        visitChildren(ctx);
+        if (funcion!= "") {
+            
             return ".class public Sumar\n"
                     + ".super java/lang/Object\n"
                     + "\n"
@@ -119,6 +121,9 @@ public class MiVisitante extends miniBBaseVisitor<String> {
 
         String primeraV = "";
         if (esNumero(ctx.number.getText()) || esFloat(ctx.number.getText())) {
+            if(esFloat(ctx.number.getText())){
+                esFt = true;
+            }
             
             primeraV = "ldc " + ctx.number.getText();
             return primeraV;
@@ -167,7 +172,9 @@ public class MiVisitante extends miniBBaseVisitor<String> {
                 imprimeTipo = visitChildren(ctx) + " \n"
                         + "   invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V\n";
                 esStrc = false;
-            } else {
+            } else if(esFt){
+                imprimeTipo = visitChildren(ctx) + " \n" + "   invokevirtual java/io/PrintStream/println(F)V\n";
+            }else{
                 imprimeTipo = visitChildren(ctx) + " \n" + "   invokevirtual java/io/PrintStream/println(I)V\n";
             }
         } else if (ctx.pf != null) {
@@ -809,7 +816,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             s.setTipoLLamadaFun(tipo);
             s.setTipoReturnFun(tipoReturnFun);
             tablaSimbolos.insertar(ctx.nomDef.getText(), s);
-            funcion = valorFuncion;
+            funcion += valorFuncion;
             return "";
 
         } else {
@@ -849,19 +856,19 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             Simbolo s = new Simbolo(tipo, 0);
             tablaSimbolos.insertar(ctx.Variable.getText(), s);
 
-            String valorFuncion = ".method public static " + ctx.nomDef.getText() + "(" + tipofun + ")V"
+            String valorFuncion = "\n.method public static " + ctx.nomDef.getText() + "(" + tipofun + ")V"
                     + "\n.limit stack 100"
                     + "\n.limit locals 100"
                     + "\n" + iniVar
                     + "\n" + visitChildren(ctx)
 
                     + "\nreturn"
-                    + "\n.end method";
+                    + "\n.end method\n";
 
             s = new Simbolo(Simbolo.EnumTipo.Funcion, valorFuncion);
             s.setTipoLLamadaFun(tipo);
             tablaSimbolos.insertar(ctx.nomDef.getText(), s);
-            funcion = valorFuncion;
+            funcion += valorFuncion;
             return "";
 
         } else {
