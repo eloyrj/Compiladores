@@ -13,7 +13,7 @@ iload 1
 iload 2
 if_icmpge etiqueta0
 etiqueta1:
-ldc 3
+iload 1
 ldc 3
 if_icmpgt etiqueta2
 goto etiqueta3

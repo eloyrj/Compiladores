@@ -287,7 +287,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             }
 
         }
-        return segundaV + "\n" + segundaV + "\n" + comparador + "\n" + instElse + "goto etiqueta" + etiqueta2
+        return primeraV + "\n" + segundaV + "\n" + comparador + "\n" + instElse + "goto etiqueta" + etiqueta2
                 + "\netiqueta" + etiqueta1 + ":\n" + comandosTrue;
     }
 
