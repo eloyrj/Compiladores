@@ -314,7 +314,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
 
     @Override
     public String visitLETT(miniBParser.LETTContext ctx) {
-        //if (tablaSimbolos.buscar(ctx.nombre.getText()) == null) {
+        if (tablaSimbolos.buscar(ctx.nombre.getText()) == null) {
             Simbolo.EnumTipo tipo = null;
             String tipostore = "";
             Object valor = null;
@@ -344,9 +344,9 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             store++;
             tablaSimbolos.insertar(ctx.nombre.getText(), s);
             return "ldc " + valor + "\n" + tipostore + s.almacenado + "\n";
-       // }else{
-         //return "Error: la variable " + ctx.nombre.getText() + " ya existe";
-        //}
+       }else{
+            return "Error: la variable " + ctx.nombre.getText() + " ya existe";
+        }
     }
 
     @Override
@@ -365,11 +365,19 @@ public class MiVisitante extends miniBBaseVisitor<String> {
                 llamaFun = "I";
             } else if (s.getTipoLLamadaFun() == Simbolo.EnumTipo.String) {
                 llamaFun = "Ljava/lang/String;";
+            }else if (s.getTipoLLamadaFun() == Simbolo.EnumTipo.Float) {
+                llamaFun = "F";
+            } else if (s.getTipoLLamadaFun() == Simbolo.EnumTipo.Array) {
+                llamaFun = "Ljava/lang/String;";
             }
             String returFun = "V";
             if (s.getTipoReturnFun() == Simbolo.EnumTipo.Integer) {
                 returFun = "I";
             } else if (s.getTipoReturnFun() == Simbolo.EnumTipo.String) {
+                returFun = "Ljava/lang/String;";
+            }else if (s.getTipoReturnFun() == Simbolo.EnumTipo.Float) {
+                returFun = "F";
+            } else if (s.getTipoReturnFun() == Simbolo.EnumTipo.Array) {
                 returFun = "Ljava/lang/String;";
             }
             String primeraV = "V";
@@ -537,7 +545,7 @@ public class MiVisitante extends miniBBaseVisitor<String> {
             int st2 = store;
             store++;
 
-            return "iload " + tablaSimbolos.buscar(ctx.variableFor.getText()).almacenado + "\nistore " + st1
+            return "ldc "+ctx.valorFor.getText()+"\nistore " + st1
                     + "\nldc " + ctx.igualacion.getText() + "\nistore " + st2 + "\niload 1\niload 2\nif_icmpge etiqueta"
                     + etiqueta1 + "\netiqueta" + etiqueta2 + ":\n" + visitChildren(ctx)
                     + "\niload 1\nldc 1\niadd\nistore 1\niload 1\niload 2" + "\nif_icmplt etiqueta" + etiqueta2
